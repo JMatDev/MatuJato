@@ -1,0 +1,5 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Container" style="flex-grow: 1; color: rgb(255, 255, 255); -unity-font-style: bold;">
+        <ui:Label text="Label" name="fpsLabel" style="font-size: 40px;" />
+    </ui:VisualElement>
+</ui:UXML>
