@@ -8,8 +8,6 @@ public class MapTransition : MonoBehaviour
     public GameObject CineMachine;
     public BoxCollider2D newMapTrigger;
     public PolygonCollider2D newMapBoundary;
-    public float valorX;
-    public float valorY;
 
     private BoxCollider2D boxCol;
     private CinemachineConfiner2D confiner;
