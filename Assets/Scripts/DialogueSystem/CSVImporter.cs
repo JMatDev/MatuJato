@@ -12,7 +12,6 @@ public class DialogueLine {
 }
 
 public static class CSVImporter {
-
     public static List<DialogueLine> LoadCSV(TextAsset file) {
         List<DialogueLine> lines = new List<DialogueLine>();
         string[] data = file.text.Split('\n');

@@ -3,8 +3,7 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MapTransition : MonoBehaviour
-{
+public class MapTransition : MonoBehaviour {
     public GameObject CineMachine;
     public BoxCollider2D newMapTrigger;
     public PolygonCollider2D newMapBoundary;
@@ -13,15 +12,12 @@ public class MapTransition : MonoBehaviour
     private CinemachineConfiner2D confiner;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    void Start() {
         boxCol = GetComponent<BoxCollider2D>();
         confiner = CineMachine.GetComponent<CinemachineConfiner2D>();
     }
-    private void OnTriggerEnter2D(Collider2D otherCollider)
-    {
-        if (otherCollider.CompareTag("Player"))
-        {
+    private void OnTriggerEnter2D(Collider2D otherCollider) {
+        if (otherCollider.CompareTag("Player")) {
             confiner.BoundingShape2D = newMapBoundary;
             boxCol.enabled = false;
             newMapTrigger.enabled = true;
