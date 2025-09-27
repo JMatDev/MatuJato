@@ -16,6 +16,6 @@ public class MainMenuEvents : MonoBehaviour
 
     private void OnPlayButtonClick()
     {
-        SceneManager.LoadScene("TestScene2");
+        SceneManager.LoadScene("ZonaCamaras");
     }
 }

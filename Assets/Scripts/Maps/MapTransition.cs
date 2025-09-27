@@ -16,7 +16,7 @@ public class MapTransition : MonoBehaviour {
         {
             Camera.main.transform.position = new Vector3(xCameraPosition, yCameraPosition, -10f);
             Camera.main.orthographicSize = sizeCamera;
-            respawnPoint.transform.position = new Vector3(xRespawn, yRespawn, 0);
+            respawnPoint.transform.position = new Vector3(xRespawn, yRespawn, respawnPoint.transform.position.z);
             newMapTrigger.SetActive(true);
             gameObject.SetActive(false);
         }

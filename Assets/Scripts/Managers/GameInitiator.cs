@@ -20,7 +20,7 @@ public class GameInitiator : MonoBehaviour
     {
         Debug.Log("Colocar Camara");
 
-        Camera.main.transform.position = new Vector3(-0.55f, 0, -10f);
+        Camera.main.transform.position = new Vector3(-0.53f, 0, -10f);
         Camera.main.orthographicSize = 7f;
 
         yield return null; 
