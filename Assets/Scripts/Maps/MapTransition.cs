@@ -1,26 +1,24 @@
-using Unity.Cinemachine;
-using Unity.IO.LowLevel.Unsafe;
+using System.Drawing;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MapTransition : MonoBehaviour {
-    public GameObject CineMachine;
-    public BoxCollider2D newMapTrigger;
-    public PolygonCollider2D newMapBoundary;
-
-    private BoxCollider2D boxCol;
-    private CinemachineConfiner2D confiner;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
-        boxCol = GetComponent<BoxCollider2D>();
-        confiner = CineMachine.GetComponent<CinemachineConfiner2D>();
-    }
-    private void OnTriggerEnter2D(Collider2D otherCollider) {
-        if (otherCollider.CompareTag("Player")) {
-            confiner.BoundingShape2D = newMapBoundary;
-            boxCol.enabled = false;
-            newMapTrigger.enabled = true;
+    public float xCameraPosition;
+    public float yCameraPosition;  
+    public float xRespawn;
+    public float yRespawn;
+    public float sizeCamera;
+    public GameObject respawnPoint;
+    public GameObject newMapTrigger;
+    
+    private void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if (otherCollider.CompareTag("Player"))
+        {
+            Camera.main.transform.position = new Vector3(xCameraPosition, yCameraPosition, -10f);
+            Camera.main.orthographicSize = sizeCamera;
+            respawnPoint.transform.position = new Vector3(xRespawn, yRespawn, 0);
+            newMapTrigger.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 }

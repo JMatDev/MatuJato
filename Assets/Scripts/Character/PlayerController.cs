@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public float speed = 5f;
     public Rigidbody2D RB;
     public InputActionReference move;
@@ -15,7 +14,6 @@ public class PlayerController : MonoBehaviour
         move.action.Enable();
     }
 
-    // Update is called once per frame
     void Update()
     {
         moveInputVector = move.action.ReadValue<Vector2>();

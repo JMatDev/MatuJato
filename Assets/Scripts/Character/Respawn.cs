@@ -7,7 +7,11 @@ public class Respawn : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("DeathZone"))
-            player.position = respawnPoint.position;
+        if (col.gameObject.layer == LayerMask.NameToLayer("DeathZone")) RespawnCharacter();
+    }
+    
+    public void RespawnCharacter()
+    {
+        player.position = respawnPoint.position;
     }
 }
