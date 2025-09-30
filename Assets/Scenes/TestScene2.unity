@@ -621,7 +621,7 @@ Transform:
   m_GameObject: {fileID: 1171033315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.969461, y: 2.6389399, z: -11}
+  m_LocalPosition: {x: 26.967827, y: 2.6389399, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -773,9 +773,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f998c26d3362d4ebb9c4e1ebf8be29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CineMachine: {fileID: 1466223219}
+  xCameraPosition: 0
+  yCameraPosition: 0
+  xRespawn: 0
+  yRespawn: 0
+  sizeCamera: 0
+  respawnPoint: {fileID: 0}
   newMapTrigger: {fileID: 1401541166}
-  newMapBoundary: {fileID: 1255087998}
 --- !u!61 &1306710952
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -882,9 +886,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f998c26d3362d4ebb9c4e1ebf8be29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CineMachine: {fileID: 1466223219}
+  xCameraPosition: 0
+  yCameraPosition: 0
+  xRespawn: 0
+  yRespawn: 0
+  sizeCamera: 0
+  respawnPoint: {fileID: 0}
   newMapTrigger: {fileID: 1306710952}
-  newMapBoundary: {fileID: 844454950}
 --- !u!61 &1401541166
 BoxCollider2D:
   m_ObjectHideFlags: 0
