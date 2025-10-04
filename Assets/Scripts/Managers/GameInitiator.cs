@@ -18,10 +18,8 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator ColocarCamara()
     {
-        Debug.Log("Colocar Camara");
-
-        Camera.main.transform.position = new Vector3(-0.53f, 0, -10f);
-        Camera.main.orthographicSize = 7f;
+        Camera.main.transform.position = new Vector3(0.1f, -2f, Camera.main.transform.position.z);
+        Camera.main.orthographicSize = 10f;
 
         yield return null; 
     }
