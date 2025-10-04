@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
         Turn();
     }
 
-    Vector2 Vector4Direcciones() {
+    Vector2 Vector4Direcciones()
+    {
         Vector2 direccion = move.action.ReadValue<Vector2>();
         if (Mathf.Abs(direccion.x) > Mathf.Abs(direccion.y))
             direccion = new Vector2(Mathf.Sign(direccion.x), 0);
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         if (moveInputVector != Vector2.zero) animator.SetBool("isRunning", true);
         else animator.SetBool("isRunning", false);
-    
+
         if (moveInputVector == Vector2.zero) return;
         animator.SetFloat("moveX", moveInputVector.x);
         animator.SetFloat("moveY", moveInputVector.y);
@@ -51,7 +52,13 @@ public class PlayerController : MonoBehaviour
         if (RB.linearVelocity != Vector2.zero)
         {
             if (moveInputVector.x > 0) transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            else if (moveInputVector.x < 0)  transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            else if (moveInputVector.x < 0) transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+    }
+    
+    public void FirstAnim()
+    {
+        animator.SetFloat("moveX", 0);
+        animator.SetFloat("moveY", -1);
     }
 }
