@@ -4,10 +4,11 @@ public class IntroductoryLevel_Manager : MonoBehaviour {
     [SerializeField] private DialogueManager levelDialogues;
     [SerializeField] private BoxCollider2D hotelBoxCollider;
 
-    void Start() {
-        levelDialogues.StartDialogue(0, 4);        
+    public void ShowFirstDialogue() {
+        levelDialogues.StartDialogue(0, 4);
     }
 
-    
-
+    public void ShowSecondDialogue() {
+        levelDialogues.StartDialogue(3, 4);
+    }
 }

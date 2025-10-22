@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -10,19 +12,22 @@ public class DialogueManager : MonoBehaviour {
     [SerializeField] private RectTransform dialogueBox;
     [SerializeField] private Image characterPhoto;
     [SerializeField] private TextMeshProUGUI dialogueArea;
-    
-    // Each scene will contain its own csv file with they're own dialogues 
+    [SerializeField] private GameObject levelManger;
+
+    // Each scene will contain its own csv file with they're own dialogues
     public TextAsset csvFile;
     public List<DialogueCharacterScripting> characters;
     public List<DialogueLine> dialogueData;
     public string currentLanguage = "ES";
+    public UnityEvent DialoguesReady;
+
     public static DialogueManager Instance { get; private set; }
     
     private Queue<DialogueLine> currentDialogueQueue;
     private DialogueCharacterScripting currentCharacter;
 
     private void Start() {
-        dialogueData = CSVImporter.LoadCSV(csvFile);
+        LoadDialogueData();
     }
 
     private void Awake() {
@@ -55,6 +60,11 @@ public class DialogueManager : MonoBehaviour {
             yield return null;
         }
         HideDialogueBox();
+    }
+
+    private void LoadDialogueData() {
+        dialogueData = CSVImporter.LoadCSV(csvFile);
+        DialoguesReady.Invoke();
     }
 
     public void ShowDialogueBox() {
