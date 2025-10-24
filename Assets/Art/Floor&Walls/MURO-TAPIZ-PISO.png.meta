@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d7e71d8c25aa2764187ec18de1c613d9
+guid: ad9f777207e4e2649b8f4415b6a37d35
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1716935385762718888
-    second: carbon_pared1_0
+      213: -2174233857263320074
+    second: MURO-TAPIZ-PISO_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: carbon_pared1_0
+      name: MURO-TAPIZ-PISO_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 0
-        width: 200
+        width: 171
         height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a46faaf2a7c3d710800000000000000
-      internalID: 1716935385762718888
+      spriteID: 6f3413f83d193d1e0800000000000000
+      internalID: -2174233857263320074
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      carbon_pared1_0: 1716935385762718888
+      MURO-TAPIZ-PISO_0: -2174233857263320074
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

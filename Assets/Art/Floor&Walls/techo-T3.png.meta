@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5219e7a5f64e7e74e838c939f1ae1768
+guid: b49cb86f8a1832545ac204b705482f53
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6999854712978678094
-    second: carbon_pared2_0
+      213: 2277988745498763814
+    second: techo-T3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: carbon_pared2_0
+      name: techo-T3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e41207e46ca742160800000000000000
-      internalID: 6999854712978678094
+      spriteID: 622aac9d1ba0d9f10800000000000000
+      internalID: 2277988745498763814
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0c719846202f2df4d863fb4565ba16cb
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +133,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":200.0,"y":200.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      carbon_pared2_0: 6999854712978678094
+      techo-T3_0: 2277988745498763814
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

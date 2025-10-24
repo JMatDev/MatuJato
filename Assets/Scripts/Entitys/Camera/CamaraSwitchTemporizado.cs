@@ -3,7 +3,7 @@ using System.Collections;//Usar la corrutina "IEnumerator"
 public class CamaraSwitchTemporizado : MonoBehaviour
 {
     public CamaraLightController[] camarasToToggle;
-    private bool isActive = false; // estado del switch
+    //private bool isActive = false; // estado del switch
     private bool isRunning = false;
     private float activeTime = 10f;
 
