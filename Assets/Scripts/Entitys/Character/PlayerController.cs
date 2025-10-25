@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public InputActionReference move;
 
-    private Vector2 moveInputVector;
+    [HideInInspector] public Vector2 moveInputVector;
 
     void Start()
     {

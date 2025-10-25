@@ -4,24 +4,34 @@ using UnityEngine.InputSystem;
 
 public class DialogueManager2 : MonoBehaviour
 {
+    public AnimationCurve curve;
     public InputActionReference move;
+    public GameObject prefab_dialogueBox;
+    public Canvas canvas;
+    public LectorGuion lectorGuion;
+    public TextAsset csvFile;
 
-    public void StartDialogue(int dialogueId,float zoomCamara, float camPosX, float camPosY)
+
+    private GameObject Instance_dialogueBox;
+    private float startZoom;
+    private Vector3 startPos;
+
+    public void StartDialogue(TextAsset csvFile, float zoomCamara, float camPosX, float camPosY)
     {
-        StartCoroutine(DialogueCoroutine(dialogueId, zoomCamara, camPosX, camPosY));
+        StartCoroutine(DialogueCoroutine(csvFile, zoomCamara, camPosX, camPosY));
     }
 
-    private IEnumerator DialogueCoroutine(int dialogueId, float zoomCamara, float camPosX, float camPosY)
+    private IEnumerator DialogueCoroutine(TextAsset csvFile, float zoomCamara, float camPosX, float camPosY)
     {
-        float startZoom = Camera.main.orthographicSize;
-        Vector3 startPos = Camera.main.transform.position;
+        startZoom = Camera.main.orthographicSize;
+        startPos = Camera.main.transform.position;
 
         yield return PausarJuego(zoomCamara, camPosX, camPosY);
-        // mostrar la caja de diálogo
-        // cargar y mostrar las líneas de diálogo correspondientes al dialogueId
-        // esperar a que el jugador avance el diálogo
-        // ocultar la caja de diálogo
-        yield return new WaitForSecondsRealtime(2f);
+        yield return MostrarCajaDialogo();
+
+        yield return lectorGuion.LeerGuion(csvFile, Instance_dialogueBox);
+        
+        yield return QuitarCajaDialogo(Instance_dialogueBox);  
         yield return ReanudarJuego(startZoom, startPos);
         yield return null;
     }
@@ -30,37 +40,50 @@ public class DialogueManager2 : MonoBehaviour
     {   
         move.action.Disable();
         Time.timeScale = 0f; // Pausa el juego
-        yield return StartCoroutine(ZoomCamara(zoomCamara, camPosX, camPosY));
+        yield return ZoomCamara(zoomCamara, camPosX, camPosY);
         yield return null;
     }
 
-    private IEnumerator ZoomCamara(float zoomCamara, float camPosX, float camPosY)
+    private IEnumerator ZoomCamara(float zoomCamara, float camPosX, float camPosY, float duration = 1f)
     {
         float prevZoom = Camera.main.orthographicSize;
         Vector3 prevPos = Camera.main.transform.position;
 
-        float duration = 1f; // Duración del movimiento
-        float elapsed = 0f;
+        float tiempoTranscurrido = 0f;
 
-        while (elapsed < duration)
+        while (tiempoTranscurrido < duration)
         {
-            elapsed += Time.unscaledDeltaTime;
-            float t = elapsed / duration;
+            float t = tiempoTranscurrido / duration;
+            float curveValue = curve.Evaluate(t);
 
-            // Interpolación suave (ease-in-out)
-            t = t * t * (3f - 2f * t);
+            Camera.main.orthographicSize = Mathf.Lerp(prevZoom, zoomCamara, curveValue);
+            Camera.main.transform.position = Vector3.Lerp(prevPos, new Vector3(camPosX, camPosY, prevPos.z), curveValue);
 
-            Camera.main.orthographicSize = Mathf.Lerp(prevZoom, zoomCamara, t);
-            Camera.main.transform.position = Vector3.Lerp(prevPos, new Vector3(camPosX, camPosY, prevPos.z), t);
+            tiempoTranscurrido += Time.unscaledDeltaTime;
             yield return null;
         }
+
+        Camera.main.orthographicSize = zoomCamara;
+        Camera.main.transform.position = new Vector3(camPosX, camPosY, prevPos.z);   
     }
 
     private IEnumerator ReanudarJuego(float startZoom, Vector3 startPos)
     {
-        yield return StartCoroutine(ZoomCamara(startZoom, startPos.x, startPos.y));
         Time.timeScale = 1f; // Reanuda el juego
         move.action.Enable();
+        yield return StartCoroutine(ZoomCamara(startZoom, startPos.x, startPos.y));
+        yield return null;
+    }
+
+    private IEnumerator MostrarCajaDialogo()
+    {
+        Instance_dialogueBox = Instantiate(prefab_dialogueBox, canvas.transform);
+        yield return null;
+    }
+
+    private IEnumerator QuitarCajaDialogo(GameObject dialogueBox)
+    {
+        Destroy(dialogueBox);
         yield return null;
     }
 }

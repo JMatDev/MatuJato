@@ -4,9 +4,9 @@ using UnityEngine;
 public class MapTransition : MonoBehaviour {
     public float xCameraPosition;
     public float yCameraPosition;  
+    public float sizeCamera;
     public float xRespawn;
     public float yRespawn;
-    public float sizeCamera;
     public GameObject respawnPoint;
     public GameObject newMapTrigger;
     
