@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class scriptpruebadm : MonoBehaviour
 {
-    public DialogueManager2 dialogueManager;
+    public DialogueManager dialogueManager;
     public TextAsset csvFile;
     public float zoomCamara;
     public float camPosX;
