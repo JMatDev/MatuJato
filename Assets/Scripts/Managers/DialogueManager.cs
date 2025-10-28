@@ -1,20 +1,28 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class DialogueManager : MonoBehaviour
 {
     public AnimationCurve curve;
     public InputActionReference move;
+    public InputActionReference interact;
     public GameObject prefab_dialogueBox;
     public Canvas canvas;
-    public LectorGuion lectorGuion;
-    public TextAsset csvFile;
 
 
     private GameObject Instance_dialogueBox;
     private float startZoom;
     private Vector3 startPos;
+
+
+
+    //singleton pattern
+    public static DialogueManager instance;
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
 
     public void StartDialogue(TextAsset csvFile, float zoomCamara, float camPosX, float camPosY)
     {
@@ -27,11 +35,11 @@ public class DialogueManager : MonoBehaviour
         startPos = Camera.main.transform.position;
 
         yield return PausarYzoom(zoomCamara, camPosX, camPosY);
-        yield return MostrarCajaDialogo();
+        yield return InstanciarContenedor();
 
-        yield return lectorGuion.LeerGuion(csvFile, Instance_dialogueBox);
-        
-        yield return QuitarCajaDialogo(Instance_dialogueBox);  
+        yield return LectorGuion.instance.LeerGuion(csvFile, Instance_dialogueBox);
+
+        yield return DestruirContenedor(Instance_dialogueBox);
         yield return ReanudarYzoom(startZoom, startPos);
         yield return null;
     }
@@ -59,6 +67,9 @@ public class DialogueManager : MonoBehaviour
             Camera.main.orthographicSize = Mathf.LerpUnclamped(prevZoom, zoomCamara, curveValue);
             Camera.main.transform.position = Vector3.LerpUnclamped(prevPos, new Vector3(camPosX, camPosY, prevPos.z), curveValue);
 
+            //interrumpir animacion
+            if (interact.action.triggered) break;
+
             tiempoTranscurrido += Time.unscaledDeltaTime;
             yield return null;
         }
@@ -75,14 +86,15 @@ public class DialogueManager : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator MostrarCajaDialogo()
+    private IEnumerator InstanciarContenedor()
     {
         Instance_dialogueBox = Instantiate(prefab_dialogueBox, canvas.transform);
         yield return null;
     }
 
-    private IEnumerator QuitarCajaDialogo(GameObject dialogueBox)
+    private IEnumerator DestruirContenedor(GameObject dialogueBox)
     {
+        yield return LectorGuion.instance.desaparecerContenedor(dialogueBox);
         Destroy(dialogueBox);
         yield return null;
     }

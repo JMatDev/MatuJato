@@ -420,10 +420,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   move: {fileID: 9071938090449222851, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
+  interact: {fileID: -237825990233438783, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
   prefab_dialogueBox: {fileID: 5332450613199040672, guid: 5fd314149acf35b4ea1bafe8a8bf064e, type: 3}
   canvas: {fileID: 303960545}
-  lectorGuion: {fileID: 822014185}
-  csvFile: {fileID: 4900000, guid: 2890de1b06478be44b1961c22a7ef87d, type: 3}
 --- !u!4 &822014184
 Transform:
   m_ObjectHideFlags: 0
@@ -452,7 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab_TextBox: {fileID: 5966322808341208592, guid: e02abf424eb0fe2439625894ca4839eb, type: 3}
-  tiempoTransicionDialogos: 1
+  tiempoTransicionDialogos: 0.5
   curvaMovimientoDialogos:
     serializedVersion: 2
     m_Curve:
@@ -460,7 +459,7 @@ MonoBehaviour:
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 0
+      outSlope: 4.701584
       tangentMode: 0
       weightedMode: 3
       inWeight: 0
@@ -468,7 +467,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2.0000029
+      inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 3
@@ -502,6 +501,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  interact: {fileID: -237825990233438783, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
+  velocidadEscritura: 18
 --- !u!1 &1235177322
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +542,7 @@ MonoBehaviour:
   RB: {fileID: 1235177326}
   animator: {fileID: 1235177327}
   move: {fileID: 9071938090449222851, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
+  interact: {fileID: -237825990233438783, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
   moveInputVector: {x: 0, y: 0}
 --- !u!114 &1235177324
 MonoBehaviour:
@@ -1125,11 +1127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0519e5913d6cc31408b1c9a5bb582cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 822014183}
   csvFile: {fileID: 4900000, guid: 2890de1b06478be44b1961c22a7ef87d, type: 3}
   zoomCamara: 7
   camPosX: -4.55
   camPosY: 0.69
+  pause: {fileID: -237825990233438783, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
 --- !u!1 &2065155693
 GameObject:
   m_ObjectHideFlags: 0
