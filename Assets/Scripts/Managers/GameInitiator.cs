@@ -12,6 +12,7 @@ public class GameInitiator : MonoBehaviour
         yield return StartCoroutine(ColocarRespawnPoint());
         yield return StartCoroutine(ColocarPersonaje());
         yield return StartCoroutine(ColocarCamara());
+        yield return StartCoroutine(RenaudarElTiempo());
     }
 
     private IEnumerator ColocarRespawnPoint()
@@ -32,6 +33,12 @@ public class GameInitiator : MonoBehaviour
         Camera.main.transform.position = new Vector3(cameraX, cameraY, Camera.main.transform.position.z);
         Camera.main.orthographicSize = cameraSize;
 
-        yield return null; 
+        yield return null;
+    }
+    
+    private IEnumerator RenaudarElTiempo()
+    {
+        Time.timeScale = 1f;
+        yield return null;
     }
 }
