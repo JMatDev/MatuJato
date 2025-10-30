@@ -1,15 +1,17 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class scriptpruebadm : MonoBehaviour
 {
-    public DialogueManager dialogueManager;
     public TextAsset csvFile;
     public float zoomCamara;
     public float camPosX;
     public float camPosY;
 
+    public InputActionReference pause;
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        dialogueManager.StartDialogue(csvFile, zoomCamara, camPosX, camPosY);
+        DialogueManager.instance.StartDialogue(csvFile, zoomCamara, camPosX, camPosY);
     }
 }
