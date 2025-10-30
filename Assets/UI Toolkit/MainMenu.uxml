@@ -1,7 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=0a46ab56c2e2f1c4fb0ec48a0de83989&amp;type=3#MainMenuStyle" />
     <ui:VisualElement name="Cotainer" style="flex-grow: 1;">
-        <ui:Label text="Matu Jato" name="Titulo" class="titulo" style="opacity: 1; display: flex; align-self: center; margin-top: 160px; font-size: 213px; -unity-font-definition: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=19926c4258d29c540be64d5fd01eefe5&amp;type=3#NotInter-Regular&quot;); -unity-font-style: bold; color: rgb(255, 255, 255); margin-bottom: 160px; margin-right: 0; margin-left: 0;" />
-        <ui:Button text="Jugar" name="PlayButton" class="button" style="height: 117px; width: 583px; font-size: 68px;" />
+        <ui:Label text="Caligo Hotel" name="Titulo" class="titulo" style="opacity: 1; display: flex; align-self: center; margin-top: 160px; font-size: 213px; -unity-font-definition: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=19926c4258d29c540be64d5fd01eefe5&amp;type=3#NotInter-Regular&quot;); -unity-font-style: bold; color: rgb(255, 255, 255); margin-bottom: 160px; margin-right: 0; margin-left: 0;" />
+        <ui:Button text="Jugar" name="PlayButton" class="button" style="height: 117px; width: 583px; font-size: 68px; top: 500px; bottom: 500px; position: absolute; left: 500px;" />
+        <ui:Button text="Salir" name="ExitButton" class="button" style="height: 117px; width: 583px; font-size: 68px; top: 700px; bottom: 500px; position: absolute; left: 500px;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,10 +1,28 @@
 :root {
+    --color-bg: #0B0B0D;
+    --color-text: #E8E8E8;
+    --color-btn: #2C2C2E;
+    --color-btn-hover: #3A3A3D;
+    --color-btn-active: #525257;
+    --accent: #8B5CF6;
 }
-
+.unity-panel {
+    background-color: var(--color-bg);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    height: 100%;
+}
 .titulo {
-    font-size: 40px;
-    color: rgb(255, 255, 255);
-    border-top-width: 0;
+    font-size: 120px;
+    color: rgb(160, 32, 240); /* violeta misterioso */
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/CascadiaCode-Regular.ttf"); /* asegúrate de tener la fuente */
+    unity-text-align: middle-center;
+    margin-top: 150px;
+    margin-bottom: 160px;
+    /* border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
@@ -15,11 +33,15 @@
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0); */
+    
+}
+.titulo:hover {
+    text-shadow: 0 0 40px rgba(180, 130, 255, 0.9);
 }
 
 .button {
-    font-size: 20px;
+    /* font-size: 40px;
     width: 380px;
     height: 60px;
     align-self: center;
@@ -27,5 +49,42 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    margin-top: 68px;
+    margin: 68px auto 0 auto;
+    border-radius:10px;
+    background-color:rgb(60,60,60);
+    color:white; */
+    font-size: 42px;
+    width: 520px;
+    height: 110px;
+    color: rgb(230, 230, 230);
+    background-color: rgb(30, 30, 30);
+    margin-top: 40px;
+    align-self: center;
+
+    /* Bordes (solo así funciona en USS) */
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+
+    border-top-color: rgb(120, 50, 200);
+    border-bottom-color: rgb(120, 50, 200);
+    border-left-color: rgb(120, 50, 200);
+    border-right-color: rgb(120, 50, 200);
+
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+.button:hover{
+    background-color: rgb(60, 60, 60);
+    border-top-color: rgb(160, 90, 255);
+    border-bottom-color: rgb(160, 90, 255);
+    border-left-color: rgb(160, 90, 255);
+    border-right-color: rgb(160, 90, 255);
+}
+.button:active{
+    background-color: var(--color-btn-active);
+    
 }
