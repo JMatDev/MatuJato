@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class scriptpruebadm : MonoBehaviour {
+public class DialogueOnTrigger : MonoBehaviour
+{
     public TextAsset csvFile;
     public float zoomCamara;
     public float camPosX;
@@ -10,7 +11,7 @@ public class scriptpruebadm : MonoBehaviour {
 
     public InputActionReference pause;
 
-    private void Start()
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (!primeraAparicion)
         {

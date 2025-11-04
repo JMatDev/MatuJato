@@ -5,6 +5,7 @@ public class GameInitiator : MonoBehaviour
 {
     public GameObject respawnPoint;
     public GameObject character;
+    public GameObject levelScript;
     public float cameraX, cameraY, cameraSize;
     public float respawnPointX, respawnPointY;
     IEnumerator Start()
@@ -40,5 +41,6 @@ public class GameInitiator : MonoBehaviour
     {
         Time.timeScale = 1f;
         yield return null;
+        levelScript.gameObject.SetActive(true);
     }
 }

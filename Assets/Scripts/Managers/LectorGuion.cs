@@ -36,7 +36,6 @@ public class LectorGuion : MonoBehaviour
         string[] lines = csvFile.text.Split(new char[] { '\n' });
         for (int i = 1; i < lines.Length - 1; i++)
         {
-
             //por cada linea del guion
             yield return EncanrgarsePrevios(i);
             yield return CrearCajaDialogo(dialoguesBox, i);
