@@ -3,29 +3,44 @@ using System.Collections;
 
 public class GameInitiator : MonoBehaviour
 {
-    public GameObject respawnPoint;
+    public ScriptableObject gameData;
     public GameObject character;
-    public GameObject levelScript;
-    public float cameraX, cameraY, cameraSize;
-    public float respawnPointX, respawnPointY;
+    
+
+    private Respawn respawnScript;
+    private float cameraX, cameraY, cameraSize;
+
+
     IEnumerator Start()
     {
+        yield return StartCoroutine(BindearDatos());
         yield return StartCoroutine(ColocarRespawnPoint());
         yield return StartCoroutine(ColocarPersonaje());
         yield return StartCoroutine(ColocarCamara());
         yield return StartCoroutine(RenaudarElTiempo());
     }
 
+    private IEnumerator BindearDatos()
+    {
+        NivelDataBase data = (NivelDataBase)gameData;
+        respawnScript = character.GetComponent<Respawn>();
+        respawnScript.respawnPoint = data.respawnPoint;
+        cameraX = data.camaraPosicionX;
+        cameraY = data.camaraPosicionY;
+        cameraSize = data.camaraZoom;
+        yield return null;
+    }
+
     private IEnumerator ColocarRespawnPoint()
     {
-        respawnPoint.transform.position = new Vector3(respawnPointX, respawnPointY, respawnPoint.transform.position.z);
+        respawnScript.transform.position = new Vector3(respawnScript.respawnPoint.x, respawnScript.respawnPoint.y, respawnScript.transform.position.z);
         yield return null; 
     }
 
     private IEnumerator ColocarPersonaje()
     {
         character.GetComponent<Respawn>().RespawnCharacter();
-        character.GetComponent<PlayerController>().FirstAnim();
+        character.GetComponent<PlayerController>().FirstAnim(); // que el personaje mire al frente
         yield return null;
     }
 
@@ -41,6 +56,5 @@ public class GameInitiator : MonoBehaviour
     {
         Time.timeScale = 1f;
         yield return null;
-        levelScript.gameObject.SetActive(true);
     }
 }

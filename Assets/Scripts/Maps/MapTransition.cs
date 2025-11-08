@@ -2,13 +2,26 @@ using System.Drawing;
 using UnityEngine;
 
 public class MapTransition : MonoBehaviour {
-    public float xCameraPosition;
-    public float yCameraPosition;  
-    public float sizeCamera;
-    public float xRespawn;
-    public float yRespawn;
-    public GameObject respawnPoint;
-    public GameObject newMapTrigger;
+    public ScriptableObject nivelData;
+    public Respawn character;
+    public GameObject[] newMapTriggers;
+
+
+    private float xCameraPosition;
+    private float yCameraPosition;  
+    private float sizeCamera;
+    private float xRespawn;
+    private float yRespawn;
+    
+
+    public void Start() {
+        NivelDataBase data = (NivelDataBase)nivelData;
+        xCameraPosition = data.camaraPosicionX;
+        yCameraPosition = data.camaraPosicionY;
+        sizeCamera = data.camaraZoom;
+        xRespawn = data.respawnPoint.x;
+        yRespawn = data.respawnPoint.y;
+    }
     
     private void OnTriggerEnter2D(Collider2D otherCollider)
     {
@@ -16,8 +29,11 @@ public class MapTransition : MonoBehaviour {
         {
             Camera.main.transform.position = new Vector3(xCameraPosition, yCameraPosition, -10f);
             Camera.main.orthographicSize = sizeCamera;
-            respawnPoint.transform.position = new Vector3(xRespawn, yRespawn, respawnPoint.transform.position.z);
-            newMapTrigger.SetActive(true);
+            character.respawnPoint = new Vector3(xRespawn, yRespawn, character.respawnPoint.z);
+            foreach (GameObject trigger in newMapTriggers)
+            {
+                trigger.SetActive(true);
+            }
             gameObject.SetActive(false);
         }
     }
