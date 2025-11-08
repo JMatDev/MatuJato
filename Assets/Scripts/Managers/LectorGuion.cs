@@ -11,8 +11,7 @@ public class LectorGuion : MonoBehaviour
 {
     public GameObject prefab_TextBox;
     public float tiempoTransicionDialogos;
-    public AnimationCurve curvaMovimientoDialogos;
-    public float tiempoAparicionTexto;
+    public AnimationCurve curvaTransicionDialogos;
     public AnimationCurve curvaAparicionTexto;
     public InputActionReference interact;
     public float velocidadEscritura;
@@ -20,7 +19,7 @@ public class LectorGuion : MonoBehaviour
 
     private TMP_Text dialogueText;
     private GameObject inst_TextBox;
-    private List<GameObject> instancias;
+    private List<GameObject> listaCajas;
 
     
 
@@ -37,77 +36,33 @@ public class LectorGuion : MonoBehaviour
         for (int i = 1; i < lines.Length - 1; i++)
         {
             //por cada linea del guion
-            yield return EncanrgarsePrevios(i);
-            yield return CrearCajaDialogo(dialoguesBox, i);
+            yield return moverYcrearNuevo(dialoguesBox, i);
+            //yield return EncanrgarsePrevios(i);
+            //yield return CrearCajaDialogo(dialoguesBox, i);
             yield return LeerLinea(lines[i]);
         }
-        instancias = null;
+        listaCajas = null;
         yield return null;
     }
 
-    private IEnumerator EncanrgarsePrevios(int index)
+
+    private IEnumerator moverYcrearNuevo(GameObject dialoguesBox, int index)
     {
+        //si es el primero, inicializar lista y salir
         if (index == 1)
         {
-            instancias = new List<GameObject>();
-            yield break;
-        }
-        //añadir instancias a la lista
-        instancias.Add(inst_TextBox);
-        yield return new WaitUntil(() => !interact.action.triggered);
-        yield return moverCajasDialogo();
-    }
+            //crear nueva caja de dialogo
+            inst_TextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
+            //posicionar caja
+            inst_TextBox.transform.localPosition = new Vector3(0, -90, 0);
+            //obtener componentes
+            dialogueText = inst_TextBox.GetComponentInChildren<TMP_Text>();
+            Image pedazoPapel = inst_TextBox.transform.GetChild(0).GetComponent<Image>();
+            Image characterImage = inst_TextBox.transform.GetChild(1).GetComponent<Image>();
 
-    private IEnumerator moverCajasDialogo()
-    {
-        bool interrumpido = false;
-        Vector3[] posicionesIniciales = new Vector3[instancias.Count];
-        Vector3[] posicionesFinales = new Vector3[instancias.Count];
 
-        for (int i = 0; i < instancias.Count; i++)
-        {
-            posicionesIniciales[i] = instancias[i].transform.localPosition;
-            posicionesFinales[i] = new Vector3(instancias[i].transform.localPosition.x, instancias[i].transform.localPosition.y + 270, instancias[i].transform.localPosition.z);
-        }
-
-        float tiempo = 0f;
-
-        while (tiempo < tiempoTransicionDialogos)
-        {
-            tiempo += Time.unscaledDeltaTime;
-            float t = Mathf.Clamp01(tiempo / tiempoTransicionDialogos);
-            float curvaT = curvaMovimientoDialogos.Evaluate(t);
-
-            for (int i = 0; i < instancias.Count; i++)
-            {
-                instancias[i].transform.localPosition = Vector3.LerpUnclamped(posicionesIniciales[i], posicionesFinales[i], curvaT);
-                if (interact.action.triggered)
-                {
-                    interrumpido = true;
-                    break;
-                }
-            }
-            if (interrumpido) break;
-            yield return null;
-        }
-
-        for (int i = 0; i < instancias.Count; i++)
-        {
-            instancias[i].transform.localPosition = posicionesFinales[i];
-        }
-    }
-
-    private IEnumerator CrearCajaDialogo(GameObject dialoguesBox, int index)
-    {
-        inst_TextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
-        inst_TextBox.transform.localPosition = new Vector3(0, -90, 0);
-        dialogueText = inst_TextBox.GetComponentInChildren<TMP_Text>();
-
-        Image pedazoPapel = inst_TextBox.transform.GetChild(0).GetComponent<Image>();
-        Image characterImage = inst_TextBox.transform.GetChild(1).GetComponent<Image>();
-
-        if (index == 1)
-        {
+            //inicializar lista de cajas
+            listaCajas = new List<GameObject> ();
             //animacion primero
             Color finalColorPapel = pedazoPapel.color;
             Color finalColorCharacter = characterImage.color;
@@ -115,30 +70,73 @@ public class LectorGuion : MonoBehaviour
             finalColorCharacter.a = 1;
             pedazoPapel.color = finalColorPapel;
             characterImage.color = finalColorCharacter;
-            yield return new WaitForSecondsRealtime(1f);
+            yield break;
         }
         else
         {
-            //animacion aparicion texto (todos menos el primero)
+            //añadir cajas a la lista
+            listaCajas.Add(inst_TextBox);
+
+
+            //crear nueva caja de dialogo
+            inst_TextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
+            //posicionar caja
+            inst_TextBox.transform.localPosition = new Vector3(0, -90, 0);
+            //obtener componentes
+            dialogueText = inst_TextBox.GetComponentInChildren<TMP_Text>();
+            Image pedazoPapel = inst_TextBox.transform.GetChild(0).GetComponent<Image>();
+            Image characterImage = inst_TextBox.transform.GetChild(1).GetComponent<Image>();
+   
+   
+            //esperar accion del jugador para continuar
+            yield return new WaitUntil(() => !interact.action.triggered);
+            bool interrumpido = false;
+            //posiciones iniciales y finales
+            Vector3[] posicionesIniciales = new Vector3[listaCajas.Count];
+            Vector3[] posicionesFinales = new Vector3[listaCajas.Count];
+            //asignar posiciones
+            for (int i = 0; i < listaCajas.Count; i++)
+            {
+                posicionesIniciales[i] = listaCajas[i].transform.localPosition;
+                posicionesFinales[i] = new Vector3(listaCajas[i].transform.localPosition.x, listaCajas[i].transform.localPosition.y + 270, listaCajas[i].transform.localPosition.z);
+            }
+
             float tiempo = 0f;
-            while (tiempo < tiempoAparicionTexto)
+
+            while (tiempo < tiempoTransicionDialogos)
             {
                 tiempo += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(tiempo / tiempoAparicionTexto);
-                float curvaT = curvaAparicionTexto.Evaluate(t);
+                float t = Mathf.Clamp01(tiempo / tiempoTransicionDialogos);
+                float curvaTD = curvaTransicionDialogos.Evaluate(t);
+                float curvaA = curvaAparicionTexto.Evaluate(t);
+
+                for (int i = 0; i < listaCajas.Count; i++)
+                {
+                    listaCajas[i].transform.localPosition = Vector3.LerpUnclamped(posicionesIniciales[i], posicionesFinales[i], curvaTD);
+                    if (interact.action.triggered)
+                    {
+                        interrumpido = true;
+                        break;
+                    }
+                }
 
                 Color colorPapel = pedazoPapel.color;
                 Color colorCharacter = characterImage.color;
 
-                colorPapel.a = Mathf.LerpUnclamped(0, 1, curvaT);
-                colorCharacter.a = Mathf.LerpUnclamped(0, 1, curvaT);
+                colorPapel.a = Mathf.LerpUnclamped(0, 1, curvaA);
+                colorCharacter.a = Mathf.LerpUnclamped(0, 1, curvaA);
 
                 pedazoPapel.color = colorPapel;
                 characterImage.color = colorCharacter;
 
+                if (interrumpido) break;
                 yield return null;
             }
 
+            for (int i = 0; i < listaCajas.Count; i++)
+            {
+                listaCajas[i].transform.localPosition = posicionesFinales[i];
+            }
             Color finalColorPapel = pedazoPapel.color;
             Color finalColorCharacter = characterImage.color;
             finalColorPapel.a = 1;
@@ -146,7 +144,7 @@ public class LectorGuion : MonoBehaviour
             pedazoPapel.color = finalColorPapel;
             characterImage.color = finalColorCharacter;
         }
-        yield return null;
+        
     }
 
     private IEnumerator LeerLinea(string line)

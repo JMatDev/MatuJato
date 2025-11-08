@@ -12,10 +12,17 @@ public class scriptpruebadm : MonoBehaviour {
 
     private void Start()
     {
+        /*
         if (!primeraAparicion)
         {
             DialogueManager.instance.StartDialogue(csvFile, zoomCamara, camPosX, camPosY);
             primeraAparicion = true;
         }
+        */
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        DialogueManager.instance.StartDialogue(csvFile, zoomCamara, camPosX, camPosY);
     }
 }
