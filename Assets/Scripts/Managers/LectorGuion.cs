@@ -13,12 +13,12 @@ public class LectorGuion : MonoBehaviour
     public float tiempoTransicionDialogos;
     public AnimationCurve curvaTransicionDialogos;
     public AnimationCurve curvaAparicionTexto;
-    public InputActionReference interact;
+    
     public float velocidadEscritura;
 
-
-    private TMP_Text dialogueText;
-    private GameObject inst_TextBox;
+    private InputActionReference interact;
+    private TMP_Text tmpText;
+    private GameObject instTextBox;
     private List<GameObject> listaCajas;
 
     
@@ -30,18 +30,17 @@ public class LectorGuion : MonoBehaviour
         if (instance == null) instance = this;
     }
 
-    public IEnumerator LeerGuion(TextAsset csvFile, GameObject dialoguesBox)
+    public IEnumerator LeerGuion(TextAsset csvFile, GameObject dialoguesBox, InputActionReference inter)
     {
+        interact = inter;
         string[] lines = csvFile.text.Split(new char[] { '\n' });
         for (int i = 1; i < lines.Length - 1; i++)
         {
             //por cada linea del guion
             yield return moverYcrearNuevo(dialoguesBox, i);
-            //yield return EncanrgarsePrevios(i);
-            //yield return CrearCajaDialogo(dialoguesBox, i);
             yield return LeerLinea(lines[i]);
         }
-        listaCajas = null;
+
         yield return null;
     }
 
@@ -52,13 +51,13 @@ public class LectorGuion : MonoBehaviour
         if (index == 1)
         {
             //crear nueva caja de dialogo
-            inst_TextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
+            instTextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
             //posicionar caja
-            inst_TextBox.transform.localPosition = new Vector3(0, -90, 0);
+            instTextBox.transform.localPosition = new Vector3(0, -90, 0);
             //obtener componentes
-            dialogueText = inst_TextBox.GetComponentInChildren<TMP_Text>();
-            Image pedazoPapel = inst_TextBox.transform.GetChild(0).GetComponent<Image>();
-            Image characterImage = inst_TextBox.transform.GetChild(1).GetComponent<Image>();
+            tmpText = instTextBox.GetComponentInChildren<TMP_Text>();
+            Image pedazoPapel = instTextBox.transform.GetChild(0).GetComponent<Image>();
+            Image characterImage = instTextBox.transform.GetChild(1).GetComponent<Image>();
 
 
             //inicializar lista de cajas
@@ -75,22 +74,24 @@ public class LectorGuion : MonoBehaviour
         else
         {
             //añadir cajas a la lista
-            listaCajas.Add(inst_TextBox);
+            listaCajas.Add(instTextBox);
 
 
             //crear nueva caja de dialogo
-            inst_TextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
+            instTextBox = Instantiate(prefab_TextBox, dialoguesBox.transform);
             //posicionar caja
-            inst_TextBox.transform.localPosition = new Vector3(0, -90, 0);
+            instTextBox.transform.localPosition = new Vector3(0, -90, 0);
             //obtener componentes
-            dialogueText = inst_TextBox.GetComponentInChildren<TMP_Text>();
-            Image pedazoPapel = inst_TextBox.transform.GetChild(0).GetComponent<Image>();
-            Image characterImage = inst_TextBox.transform.GetChild(1).GetComponent<Image>();
-   
-   
+            tmpText = instTextBox.GetComponentInChildren<TMP_Text>();
+            Image pedazoPapel = instTextBox.transform.GetChild(0).GetComponent<Image>();
+            Image characterImage = instTextBox.transform.GetChild(1).GetComponent<Image>();
+
+
             //esperar accion del jugador para continuar
             yield return new WaitUntil(() => !interact.action.triggered);
+
             bool interrumpido = false;
+            
             //posiciones iniciales y finales
             Vector3[] posicionesIniciales = new Vector3[listaCajas.Count];
             Vector3[] posicionesFinales = new Vector3[listaCajas.Count];
@@ -143,6 +144,8 @@ public class LectorGuion : MonoBehaviour
             finalColorCharacter.a = 1;
             pedazoPapel.color = finalColorPapel;
             characterImage.color = finalColorCharacter;
+
+            yield return new WaitUntil(() => !interact.action.triggered);
         }
         
     }
@@ -171,12 +174,12 @@ public class LectorGuion : MonoBehaviour
         {
             if (interact.action.triggered)
             {
-                dialogueText.text = texto; // Asegura que todo el texto esté visible al final
+                tmpText.text = texto; // Asegura que todo el texto esté visible al final
                 yield break;
             }
             // Incrementa según velocidad (caracteres por segundo)
 
-            dialogueText.text = texto.Substring(0, caracteresMostrados);
+            tmpText.text = texto.Substring(0, caracteresMostrados);
             caracteresMostrados++;
 
             float timer = 0f;
@@ -184,7 +187,7 @@ public class LectorGuion : MonoBehaviour
             {
                 if (interact.action.triggered)
                 {
-                    dialogueText.text = texto;
+                    tmpText.text = texto;
                     yield break;
                 }
                 timer += Time.unscaledDeltaTime;
@@ -192,47 +195,6 @@ public class LectorGuion : MonoBehaviour
             }
             yield return null;
         }
-        dialogueText.text = texto; // Asegura que todo el texto esté visible al final
-    }
-    
-    public IEnumerator desaparecerContenedor(GameObject dialogueBox)
-    {
-        /*
-        Image pedazoPapel = dialogueBox.transform.GetChild(0).GetComponent<Image>();
-        Image characterImage = dialogueBox.transform.GetChild(1).GetComponent<Image>();
-
-        float tiempo = 0f;
-        float duracionDesaparicion = 0.5f;
-
-        Color colorInicialPapel = pedazoPapel.color;
-        Color colorInicialCharacter = characterImage.color;
-
-        while (tiempo < duracionDesaparicion)
-        {
-            tiempo += Time.unscaledDeltaTime;
-            float t = Mathf.Clamp01(tiempo / duracionDesaparicion);
-            float curvaT = curvaAparicionTexto.Evaluate(t);
-
-            Color colorPapel = pedazoPapel.color;
-            Color colorCharacter = characterImage.color;
-
-            colorPapel.a = Mathf.LerpUnclamped(colorInicialPapel.a, 0, curvaT);
-            colorCharacter.a = Mathf.LerpUnclamped(colorInicialCharacter.a, 0, curvaT);
-
-            pedazoPapel.color = colorPapel;
-            characterImage.color = colorCharacter;
-
-            yield return null;
-        }
-
-        Color finalColorPapel = pedazoPapel.color;
-        Color finalColorCharacter = characterImage.color;
-        finalColorPapel.a = 0;
-        finalColorCharacter.a = 0;
-        pedazoPapel.color = finalColorPapel;
-        characterImage.color = finalColorCharacter;
-        */
-        yield return null;
-        
+        tmpText.text = texto; // Asegura que todo el texto esté visible al final
     }
 }

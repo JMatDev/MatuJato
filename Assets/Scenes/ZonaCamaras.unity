@@ -3409,7 +3409,7 @@ MonoBehaviour:
   RB: {fileID: 124863773}
   animator: {fileID: 124863774}
   move: {fileID: 9071938090449222851, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
-  interact: {fileID: -237825990233438783, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
+  testing: 0
   moveInputVector: {x: 0, y: 0}
 --- !u!114 &124863771
 MonoBehaviour:
@@ -4975,6 +4975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: aeb3dd8f9608d0545aac11085fd3cb67, type: 2}
   character: {fileID: 124863768}
+  inputActionAsset: {fileID: -944628639613478452, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
 --- !u!4 &315820617
 Transform:
   m_ObjectHideFlags: 0
@@ -11047,7 +11048,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.36
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -11072,7 +11073,7 @@ Transform:
   m_GameObject: {fileID: 875306670}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.34, y: -6.43, z: -10}
+  m_LocalPosition: {x: -0.25, y: -0.44, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11185,24 +11186,23 @@ MonoBehaviour:
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 0.024118112
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0
-      outWeight: 0.519568
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 4.951815
       outSlope: 0
       tangentMode: 0
       weightedMode: 3
-      inWeight: 0.225963
+      inWeight: 0
+      outWeight: 0.333333
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.0000029
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33333302
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  interact: {fileID: -237825990233438783, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
   velocidadEscritura: 60
 --- !u!114 &905433865
 MonoBehaviour:
@@ -11216,43 +11216,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d292a2b499f87cb458980ea94043a12b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curve:
+  canvas: {fileID: 944282639}
+  move: {fileID: 9071938090449222851, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
+  interact: {fileID: -6357833668246848907, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
+  prefabDialogueBox: {fileID: 5332450613199040672, guid: 5fd314149acf35b4ea1bafe8a8bf064e, type: 3}
+  prefabBlackBackground: {fileID: 302262870722617376, guid: 0c517a8f83922854e9f735a299863adc, type: 3}
+  curvaZoom:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 0.024120038
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0
-      outWeight: 0.519568
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.5
-      inSlope: 4.951789
-      outSlope: 4.9532685
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.22596401
-      outWeight: 0.22596395
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.02415099
       outSlope: 0
       tangentMode: 0
       weightedMode: 3
-      inWeight: 0.51890194
+      inWeight: 0
+      outWeight: 0.333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.5
+      inSlope: 2.9999938
+      outSlope: 2.9999943
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33333403
+      outWeight: 0.33333397
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33333397
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  move: {fileID: 9071938090449222851, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
-  interact: {fileID: -237825990233438783, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
-  prefab_dialogueBox: {fileID: 5332450613199040672, guid: 5fd314149acf35b4ea1bafe8a8bf064e, type: 3}
-  canvas: {fileID: 944282639}
+  curvaBlackBackground:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 2.000003
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.333333
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33333302
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  curvaDesaparicion:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 3.000003
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.333333
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33333302
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duracionZoom: 1
+  duracionDesaparicionTextos: 0.4
 --- !u!4 &905433866
 Transform:
   m_ObjectHideFlags: 0
@@ -12935,8 +12986,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d9a4a66d9ce1f47a52381ab0347742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InputActions: {fileID: -944628639613478452, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
   ObjetoMenuPausa: {fileID: 1033068870}
-  pausa: 0
 --- !u!114 &944282637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13435,7 +13486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.70980394}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -24823,8 +24874,8 @@ SceneRoots:
   - {fileID: 124863776}
   - {fileID: 585356594}
   - {fileID: 315820617}
-  - {fileID: 22402683}
   - {fileID: 1998980947}
+  - {fileID: 22402683}
   - {fileID: 905433866}
   - {fileID: 150899128}
   - {fileID: 1037933096}

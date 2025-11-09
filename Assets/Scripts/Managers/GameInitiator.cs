@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class GameInitiator : MonoBehaviour
 {
     public ScriptableObject gameData;
     public GameObject character;
-    
+    public InputActionAsset inputActionAsset;
 
     private Respawn respawnScript;
     private float cameraX, cameraY, cameraSize;
@@ -17,6 +18,7 @@ public class GameInitiator : MonoBehaviour
         yield return StartCoroutine(ColocarRespawnPoint());
         yield return StartCoroutine(ColocarPersonaje());
         yield return StartCoroutine(ColocarCamara());
+        yield return StartCoroutine(ActivarActionMaps());
         yield return StartCoroutine(RenaudarElTiempo());
     }
 
@@ -48,6 +50,19 @@ public class GameInitiator : MonoBehaviour
     {
         Camera.main.transform.position = new Vector3(cameraX, cameraY, Camera.main.transform.position.z);
         Camera.main.orthographicSize = cameraSize;
+
+        yield return null;
+    }
+
+    private IEnumerator ActivarActionMaps()
+    {
+        var gameplayMap = inputActionAsset.FindActionMap("Gameplay");
+        
+        foreach (var action in gameplayMap.actions)
+        {
+            //if action es dialogue no activar
+            if (action.name != "Dialogue/Accept") action.Enable();  
+        }
 
         yield return null;
     }

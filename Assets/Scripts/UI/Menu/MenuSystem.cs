@@ -1,41 +1,45 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class MenuSystem : MonoBehaviour
 {
+    public InputActionAsset InputActions;
     public GameObject ObjetoMenuPausa;
-    public bool pausa = false;
+
+    private InputActionMap ActionMapUI;
+    private InputActionMap ActionMapGameplay;
+    
     void Start()
     {
+        //Bindear Input Actions
+        ActionMapUI = InputActions.FindActionMap("UI");
+        ActionMapGameplay = InputActions.FindActionMap("Gameplay");
+        //Asignar eventos
+        InputAction pausaAction = ActionMapGameplay.FindAction("Pause");
+        InputAction DespauseAction = ActionMapUI.FindAction("Despause");
 
+        pausaAction.performed += OnPause;
+        DespauseAction.performed += OnDespause;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnPause(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
-        {
-            if (pausa == false)
-            {
-                Pausa();
-                pausa = true;
-            }
-            else
-            {
-                Reanudar();
-                pausa = false;
-            }
-        }
-    }
-    public void Reanudar()
-    {
-        ObjetoMenuPausa.SetActive(false);
-        Time.timeScale = 1;
-    }
-    public void Pausa()
-    {
-        ObjetoMenuPausa.SetActive(true);
+        ActionMapGameplay.Disable();
+        ActionMapUI.Enable();
         Time.timeScale = 0;
+        ObjetoMenuPausa.SetActive(true);
+        
     }
+
+    void OnDespause(InputAction.CallbackContext context)
+    {
+        ActionMapUI.Disable();
+        ActionMapGameplay.Enable();
+        Time.timeScale = 1;
+        ObjetoMenuPausa.SetActive(false);
+        
+    }
+
     public void moverPantalla(string nombrePantalla)
     {
         SceneManager.LoadScene(nombrePantalla);

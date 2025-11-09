@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 5385371703947959991}
   - component: {fileID: 5211411137730936358}
   m_Layer: 5
-  m_Name: 'CajaTexto '
+  m_Name: CajaTextoImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 8957669135493403049}
   - component: {fileID: 5670810380941394518}
   - component: {fileID: 8771343453849785040}
+  - component: {fileID: 8993151057828837590}
   m_Layer: 5
   m_Name: TextBox
   m_TagString: Untagged
@@ -354,7 +355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2030180356143393836, guid: 16398e705456fc54a97457ed09de1d56, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -364,3 +365,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &8993151057828837590
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966322808341208592}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

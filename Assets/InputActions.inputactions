@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "PlayerControl",
+    "name": "InputActions",
     "maps": [
         {
             "name": "Gameplay",
@@ -14,20 +14,27 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Dialogue/Accept",
+                    "type": "Button",
+                    "id": "78a3251a-16ea-4079-930e-9dc64ba59182",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "760e23a0-ed62-4fdd-ad6c-0d822e99f602",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "e9b45f87-30c3-4abb-bea0-7def911681b4",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "2D Vector",
                     "id": "85f81b9f-5f76-4ec5-a43d-6d594c28a8c0",
@@ -247,17 +254,61 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "7cb94d47-bd8c-41e5-a978-f445814ede0d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Dialogue/Accept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3eecf35c-15a3-44a6-8404-a13bba309c12",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Dialogue/Accept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ad09942-7b82-491b-b94a-c79e73f4b1b0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Dialogue/Accept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e55dd14-3a57-40c1-ae7b-964928441b41",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
             "name": "UI",
-            "id": "d15c0628-a137-4e1e-a50a-e83ed1083af5",
+            "id": "2cfaeac1-1fb9-4bd9-a64c-5a6c2557757d",
             "actions": [
                 {
-                    "name": "Pause",
+                    "name": "Despause",
                     "type": "Button",
-                    "id": "c921ce5a-ca8c-411b-ac3e-022f39a1d9d4",
+                    "id": "15d75ae7-a17e-4062-814a-203ec80e7aa4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -267,45 +318,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "d1ca846b-b9a4-4067-8539-d28aee27579a",
+                    "id": "c4470b90-be5e-40c1-940f-9cf438dceab4",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1b5db948-359d-4d49-bbc0-6bc30497a7f4",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e4f9aacc-0311-4bb7-83de-1257a8ebcf44",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3813c5d4-0d11-4d5b-86fc-9be5ab5a69ff",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
+                    "action": "Despause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

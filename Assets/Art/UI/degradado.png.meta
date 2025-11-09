@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a9a76eaef6254d54ebab995d8dd2129b
+guid: c650c89f8fe96894fa1e48a04f33c59c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 756295607661636094
-    second: Captura de pantalla 2025-10-30 030228_0
+      213: -2621517180303868713
+    second: degradado_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Captura de pantalla 2025-10-30 030228_0
+      name: degradado_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 170
         y: 0
-        width: 1245
-        height: 775
+        width: 1226
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef92cdf19d6ee7a00800000000000000
-      internalID: 756295607661636094
+      spriteID: 7dc776f83008e9bd0800000000000000
+      internalID: -2621517180303868713
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Captura de pantalla 2025-10-30 030228_0: 756295607661636094
+      degradado_0: -2621517180303868713
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

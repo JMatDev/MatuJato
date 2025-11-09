@@ -7,14 +7,16 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D RB;
     public Animator animator;
     public InputActionReference move;
-    public InputActionReference interact;
+    public bool testing = false;
 
     [HideInInspector] public Vector2 moveInputVector;
 
     void Start()
     {
-        move.action.Enable();
-        interact.action.Enable();
+        if (testing)
+        {
+            move.action.Enable();
+        }
     }
 
     void Update()
