@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         if (testing)
         {
-            move.action.Enable();
+            move.action.actionMap.Enable();
         }
     }
 

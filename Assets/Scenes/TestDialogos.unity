@@ -513,6 +513,7 @@ MonoBehaviour:
   RB: {fileID: 1235177326}
   animator: {fileID: 1235177327}
   move: {fileID: 9071938090449222851, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
+  testing: 0
   moveInputVector: {x: 0, y: 0}
 --- !u!114 &1235177324
 MonoBehaviour:
