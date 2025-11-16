@@ -18,15 +18,16 @@ public class MenuPausaSystem : MonoBehaviour
     public CanvasGroup campana;
     public AnimationCurve curvaBlackScreen;
     public VolumeProfile volumeProfile;
-    
+
 
     private InputActionMap ActionMapUI;
     private InputActionMap ActionMapGameplay;
     private DepthOfField dof;
-    
+
 
     void Start()
     {
+
         //Bindear Input Actions
         ActionMapUI = InputActions.FindActionMap("UI");
         ActionMapGameplay = InputActions.FindActionMap("Gameplay");
@@ -40,6 +41,28 @@ public class MenuPausaSystem : MonoBehaviour
         if (volumeProfile.TryGet(out DepthOfField depthOfField))
         {
             dof = depthOfField;
+        }
+    }
+
+    //Destructores:
+    void OnDisable()
+    {
+        ActionMapGameplay?.Disable();
+        ActionMapUI?.Disable();
+    }
+    void OnDestroy()
+    {
+        // Evita llamadas cuando el objeto ya no existe
+        if (ActionMapGameplay != null)
+        {
+            var pausaAction = ActionMapGameplay.FindAction("Pause");
+            pausaAction.performed -= OnPause;
+        }
+
+        if (ActionMapUI != null)
+        {
+            var despauseAction = ActionMapUI.FindAction("Despause");
+            despauseAction.performed -= OnResume;
         }
     }
 
@@ -62,7 +85,7 @@ public class MenuPausaSystem : MonoBehaviour
     {
         Time.timeScale = 0;
         ActionMapGameplay.Disable();
-        yield return StartCoroutine(Animar(new Vector3(0, 34, 0),140, 225, 0, duracionAparicion));
+        yield return StartCoroutine(Animar(new Vector3(0, 34, 0), 140, 225, 0, duracionAparicion));
         ActionMapUI.Enable();
         yield return null;
     }
@@ -81,14 +104,14 @@ public class MenuPausaSystem : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private IEnumerator Animar(Vector3 posicionFinal,float valorFinalDof, float valorFinalAlpha, float valorFinalCampana, float duracion)
+    private IEnumerator Animar(Vector3 posicionFinal, float valorFinalDof, float valorFinalAlpha, float valorFinalCampana, float duracion)
     {
         //valores iniciales
         Vector3 posPrev = MenuPausa.GetComponent<RectTransform>().localPosition;
         float dofPrev = dof.focalLength.value;
         byte colorPrev = ((Color32)blackScreen.GetComponent<Image>().color).a;
         float campanaPrev = campana.alpha;
-        
+
         float tiempoTranscurrido = 0f;
         while (tiempoTranscurrido < duracion)
         {
@@ -100,9 +123,9 @@ public class MenuPausaSystem : MonoBehaviour
             float t = Mathf.Clamp01(tiempoTranscurrido / duracion);
             float curvaAparicionT = curvaAparicion.Evaluate(t);
             float curvaBlackScreenT = curvaBlackScreen.Evaluate(t);
-            if(dofPrev == 10) curvaDofT= curvaDesenfoque.Evaluate(t);
+            if (dofPrev == 10) curvaDofT = curvaDesenfoque.Evaluate(t);
             else curvaDofT = curvaEnfoque.Evaluate(t);
-            
+
             //Aplicar valores interpolados
             dof.focalLength.value = Mathf.LerpUnclamped(dofPrev, valorFinalDof, curvaDofT);
             MenuPausa.GetComponent<RectTransform>().localPosition = Vector3.LerpUnclamped(posPrev, posicionFinal, curvaAparicionT);
