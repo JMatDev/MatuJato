@@ -13,14 +13,13 @@ public class LectorGuion : MonoBehaviour
     public float tiempoTransicionDialogos;
     public AnimationCurve curvaTransicionDialogos;
     public AnimationCurve curvaAparicionTexto;
-    
     public float velocidadEscritura;
+
 
     private InputActionReference interact;
     private TMP_Text tmpText;
     private GameObject instTextBox;
     private List<GameObject> listaCajas;
-
     
 
     //singleton pattern
@@ -63,11 +62,19 @@ public class LectorGuion : MonoBehaviour
             //inicializar lista de cajas
             listaCajas = new List<GameObject> ();
             //animacion primero
+            Animator animPapel = pedazoPapel.GetComponent<Animator>();
+            
+            // reproducir animación desde el inicio
             Color finalColorPapel = pedazoPapel.color;
-            Color finalColorCharacter = characterImage.color;
             finalColorPapel.a = 1;
-            finalColorCharacter.a = 1;
             pedazoPapel.color = finalColorPapel;
+
+            animPapel.SetTrigger("PlayIntro");
+
+            
+            //finalizar animacion
+            Color finalColorCharacter = characterImage.color;
+            finalColorCharacter.a = 1;
             characterImage.color = finalColorCharacter;
             yield break;
         }

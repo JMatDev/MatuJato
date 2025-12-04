@@ -85,6 +85,7 @@ public class MenuPausaSystem : MonoBehaviour
     {
         Time.timeScale = 0;
         ActionMapGameplay.Disable();
+        MenuPausa.transform.SetAsLastSibling();
         yield return StartCoroutine(Animar(new Vector3(0, 34, 0), 140, 225, 0, duracionAparicion));
         ActionMapUI.Enable();
         yield return null;

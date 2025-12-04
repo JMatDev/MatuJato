@@ -62,7 +62,6 @@ public class DialogueManager : MonoBehaviour
     {
         move.action.Disable();
         interact.action.Enable();
-        Time.timeScale = 0f; // Pausa el juego
         yield return ZoomYfondoNegro(zoomCamara, camPosX, camPosY, posBlackX);
         yield return null;
     }
@@ -98,7 +97,6 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator ReanudarYzoom(float startZoom, Vector3 startPos, float posBlackX)
     {
-        Time.timeScale = 1f; // Reanuda el juego
         move.action.Enable();
         interact.action.Disable();
         yield return StartCoroutine(ZoomYfondoNegro(startZoom, startPos.x, startPos.y, posBlackX));
