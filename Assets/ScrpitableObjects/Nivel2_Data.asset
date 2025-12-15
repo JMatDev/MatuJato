@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc87193ecd094a840a3e61b9345c1ef7, type: 3}
   m_Name: Nivel2_Data
   m_EditorClassIdentifier: Assembly-CSharp::Nivel1Data
+  nivelName: Nivel2_Data
   camaraPosicionX: 32
   camaraPosicionY: -0.4
   camaraZoom: 9.5

@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
-    public Vector3 respawnPoint;
-    public Transform player;
+    [HideInInspector] public Vector3 respawnPoint;
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -12,6 +11,6 @@ public class Respawn : MonoBehaviour
     
     public void RespawnCharacter()
     {
-        player.position = respawnPoint;
+        transform.position = respawnPoint;
     }
 }
