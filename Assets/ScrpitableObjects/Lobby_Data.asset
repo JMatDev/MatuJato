@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Lobby_Data
   m_EditorClassIdentifier: Assembly-CSharp::NivelDataBase
   nivelName: Lobby_Data
+  respawnPoint: {x: 5, y: -45, z: 0}
+  esCamaraSeguimiento: 0
+  camaraZoom: 11
   camaraPosicionX: 0
   camaraPosicionY: 0
-  camaraZoom: 0
-  respawnPoint: {x: 5, y: -45, z: 0}

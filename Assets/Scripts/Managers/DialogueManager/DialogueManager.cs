@@ -2,9 +2,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine.UI;
+using Unity.Cinemachine;
 
 public class DialogueManager : MonoBehaviour
 {
+    public CinemachineCamera cinemachineCamera;
     public Canvas canvas;
     public InputActionReference move;
     public InputActionReference interact;
@@ -21,6 +23,7 @@ public class DialogueManager : MonoBehaviour
     private GameObject InstanceBlackBackground; 
     private float startZoom;
     private Vector3 startPos;
+    private GameObject personaje;
 
 
 
@@ -38,8 +41,9 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator DialogueCoroutine(TextAsset csvFile, float zoomCamara, float camPosX, float camPosY)
     {
-        startZoom = Camera.main.orthographicSize;
-        startPos = Camera.main.transform.position;
+        startZoom = cinemachineCamera.Lens.OrthographicSize;
+        startPos = cinemachineCamera.transform.position;
+        personaje = cinemachineCamera.Follow.gameObject; 
 
         yield return StartCoroutine(InstanciarPrefabs());
         yield return StartCoroutine(PausarYzoom(zoomCamara, camPosX, camPosY, 260));
@@ -62,14 +66,15 @@ public class DialogueManager : MonoBehaviour
     {
         move.action.Disable();
         interact.action.Enable();
+        cinemachineCamera.Follow = null;
         yield return ZoomYfondoNegro(zoomCamara, camPosX, camPosY, posBlackX);
         yield return null;
     }
 
     private IEnumerator ZoomYfondoNegro(float zoomCamara, float camPosX, float camPosY, float posBlackX)
     {
-        float prevZoom = Camera.main.orthographicSize;
-        Vector3 prevPosCam = Camera.main.transform.position;
+        float prevZoom = cinemachineCamera.Lens.OrthographicSize;
+        Vector3 prevPosCam = cinemachineCamera.transform.position;
         Vector3 prevPosBlack = InstanceBlackBackground.transform.localPosition;
 
         float tiempoTranscurrido = 0f;
@@ -80,8 +85,8 @@ public class DialogueManager : MonoBehaviour
             float curveZoom = curvaZoom.Evaluate(t);
             float curveBlack = curvaBlackBackground.Evaluate(t);
 
-            Camera.main.orthographicSize = Mathf.LerpUnclamped(prevZoom, zoomCamara, curveZoom);
-            Camera.main.transform.position = Vector3.LerpUnclamped(prevPosCam, new Vector3(camPosX, camPosY, prevPosCam.z), curveZoom);
+            cinemachineCamera.Lens.OrthographicSize = Mathf.LerpUnclamped(prevZoom, zoomCamara, curveZoom);
+            cinemachineCamera.transform.position = Vector3.LerpUnclamped(prevPosCam, new Vector3(camPosX, camPosY, prevPosCam.z), curveZoom);
             InstanceBlackBackground.transform.localPosition = Vector3.LerpUnclamped(prevPosBlack, new Vector3(posBlackX, 0, 0), curveBlack);
 
             if (interact.action.triggered) break; //interrumpir animacion
@@ -90,8 +95,8 @@ public class DialogueManager : MonoBehaviour
             yield return null;
         }
 
-        Camera.main.orthographicSize = zoomCamara;
-        Camera.main.transform.position = new Vector3(camPosX, camPosY, prevPosCam.z);
+        cinemachineCamera.Lens.OrthographicSize = zoomCamara;
+        cinemachineCamera.transform.position = new Vector3(camPosX, camPosY, prevPosCam.z);
         InstanceBlackBackground.transform.localPosition = new Vector3(posBlackX, 0, 0);
     }
 
@@ -100,6 +105,7 @@ public class DialogueManager : MonoBehaviour
         move.action.Enable();
         interact.action.Disable();
         yield return StartCoroutine(ZoomYfondoNegro(startZoom, startPos.x, startPos.y, posBlackX));
+        cinemachineCamera.Follow = personaje.transform;
         Destroy(InstanceBlackBackground);
         yield return null;
     }
