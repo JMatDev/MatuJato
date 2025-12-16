@@ -9,4 +9,6 @@ public class NivelDataBase : ScriptableObject
     public float camaraZoom;
     public float camaraPosicionX;
     public float camaraPosicionY;
+    public Vector3 camaraPosicion;
+    public GameObject confiner;
 }

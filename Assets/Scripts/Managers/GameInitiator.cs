@@ -55,10 +55,12 @@ public class GameInitiator : MonoBehaviour
 
     
     private IEnumerator ColocarCamara()
-    {   
-        /*
-        Camera.main.transform.position = new Vector3(cameraX, cameraY, Camera.main.transform.position.z);
-        Camera.main.orthographicSize = cameraSize;*/
+    {
+        GameObject confinerInst  = Instantiate(nivelData.confiner);
+        Collider2D bounds = confinerInst.GetComponentInChildren<Collider2D>();
+        //asignar el confiner a la camara
+        cameraBrain.GetComponent<CinemachineConfiner2D>().BoundingShape2D = bounds;
+        cameraBrain.GetComponent<CinemachineConfiner2D>().InvalidateBoundingShapeCache();
         cameraBrain.Lens.OrthographicSize = nivelData.camaraZoom;
         yield return null;
     }

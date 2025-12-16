@@ -18,3 +18,5 @@ MonoBehaviour:
   camaraZoom: 11
   camaraPosicionX: 0
   camaraPosicionY: 0
+  camaraPosicion: {x: 0, y: 0, z: 0}
+  confiner: {fileID: 8282517943298174103, guid: f5c631b6ad7c5a2438afd5de56a56f32, type: 3}
