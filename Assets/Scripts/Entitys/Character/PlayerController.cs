@@ -24,6 +24,27 @@ public class PlayerController : MonoBehaviour
         moveInputVector = Vector4Direcciones();
         SetAnimations();
         Turn();
+        saveData();
+        loadData();
+    }
+
+    public void saveData()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            SaveManager.SavePlayerData(this);
+            Debug.Log("Datos guardados");
+        }
+    }
+    public void loadData()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            PlayerData playerData = SaveManager.LoadPlayerData();
+            speed = playerData.speed;
+            transform.position = new Vector3(playerData.position[0], playerData.position[1], playerData.position[2]);
+            Debug.Log("Datos cardados");
+        }
     }
 
     Vector2 Vector4Direcciones()
@@ -59,7 +80,7 @@ public class PlayerController : MonoBehaviour
             else if (moveInputVector.x < 0) transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
-    
+
     public void FirstAnim()
     {
         animator.SetFloat("moveX", 0);
