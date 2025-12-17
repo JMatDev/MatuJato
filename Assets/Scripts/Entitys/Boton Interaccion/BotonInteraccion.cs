@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Recepcionista : MonoBehaviour
+public class BotonInteraccion : MonoBehaviour
 {
     public GameObject botonInteraccion;
     public Animator animatorBoton;
@@ -19,5 +19,10 @@ public class Recepcionista : MonoBehaviour
         {
             animatorBoton.SetTrigger("Desaparecer");
         }
+    }
+
+    public void OcultarBoton()
+    {
+        animatorBoton.SetTrigger("Desaparecer");
     }
 }

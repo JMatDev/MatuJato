@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Lobby_Data
   m_EditorClassIdentifier: Assembly-CSharp::NivelDataBase
   nivelName: Lobby_Data
+  escalaPersonaje: {x: 1.2, y: 1.2, z: 0}
   respawnPoint: {x: 5, y: -45, z: 0}
   esCamaraSeguimiento: 0
   camaraZoom: 11
-  camaraPosicionX: 0
-  camaraPosicionY: 0
-  camaraPosicion: {x: 0, y: 0, z: 0}
+  screenPositionComposer: {x: 0, y: 0.3}
   confiner: {fileID: 8282517943298174103, guid: f5c631b6ad7c5a2438afd5de56a56f32, type: 3}

@@ -86,4 +86,9 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("moveX", 0);
         animator.SetFloat("moveY", -1);
     }
+
+    public void AbleControl()
+    {
+        move.action.Enable();
+    }
 }

@@ -7,6 +7,8 @@ public class Interactuar : MonoBehaviour
 
     private bool isInRange = false;
     private Collider2D triggerCollider;
+    private bool isDialouge = false;
+    private bool isDoor = false;
 
     void Start()
     {
@@ -17,19 +19,38 @@ public class Interactuar : MonoBehaviour
     {
         if (isInRange)
         {
-            triggerCollider.GetComponent<DialogueTrigger>().TriggerDialogue();
+            Debug.Log("Interacting with " + triggerCollider.name);
+            if (isDialouge) triggerCollider.GetComponent<DialogueTrigger>().TriggerDialogue();
+            if (isDoor) triggerCollider.GetComponent<TransicionNiveles>().CambiarNivel();
+            triggerCollider.GetComponent<BotonInteraccion>().OcultarBoton();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Dialogue")) isInRange = true;
-        triggerCollider = collision;
+        if (collision.CompareTag("Dialogue") || collision.CompareTag("Door")) 
+        {
+            triggerCollider = collision;
+            isInRange = true;
+            if (collision.CompareTag("Dialogue")) isDialouge = true;
+            if (collision.CompareTag("Door")) isDoor = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Dialogue")) isInRange = false;
-        triggerCollider = null;
+        if (collision.CompareTag("Dialogue") || collision.CompareTag("Door"))
+        {
+            triggerCollider = null;
+            isInRange = false;
+            isDialouge = false;
+            isDoor = false;
+        }
+        
+    }
+
+    public void Respawn()
+    {
+        GetComponentInChildren<Respawn>().RespawnCharacter();
     }
 }

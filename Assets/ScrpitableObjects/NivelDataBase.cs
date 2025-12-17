@@ -4,11 +4,10 @@ using UnityEngine;
 public class NivelDataBase : ScriptableObject
 {
     public string nivelName;
+    public Vector3 escalaPersonaje;
     public Vector3 respawnPoint;
     public bool esCamaraSeguimiento;
     public float camaraZoom;
-    public float camaraPosicionX;
-    public float camaraPosicionY;
-    public Vector3 camaraPosicion;
+    public Vector2 screenPositionComposer;
     public GameObject confiner;
 }
