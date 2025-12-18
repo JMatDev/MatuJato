@@ -91,7 +91,7 @@ public class DialogueManager : MonoBehaviour
 
             if (interact.action.triggered) break; //interrumpir animacion
 
-            tiempoTranscurrido += Time.unscaledDeltaTime;
+            tiempoTranscurrido += Time.deltaTime;
             yield return null;
         }
 
@@ -124,7 +124,7 @@ public class DialogueManager : MonoBehaviour
 
             if (interact.action.triggered) break;
 
-            tiempo += Time.unscaledDeltaTime;
+            tiempo += Time.deltaTime;
             yield return null;
         }
 

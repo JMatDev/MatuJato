@@ -4,10 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
-    public Rigidbody2D RB;
-    public Animator animator;
     public InputActionReference move;
-    public bool testing = false;
+    [SerializeField] private bool testing = false;
 
     [HideInInspector] public Vector2 moveInputVector;
 
@@ -47,7 +45,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    Vector2 Vector4Direcciones()
+    public Vector2 Vector4Direcciones()
     {
         Vector2 direccion = move.action.ReadValue<Vector2>();
         if (Mathf.Abs(direccion.x) > Mathf.Abs(direccion.y))
@@ -59,22 +57,22 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        RB.linearVelocity = new Vector2(moveInputVector.x * speed, moveInputVector.y * speed);
+        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(moveInputVector.x * speed, moveInputVector.y * speed);
     }
 
     void SetAnimations()
     {
-        if (moveInputVector != Vector2.zero) animator.SetBool("isRunning", true);
-        else animator.SetBool("isRunning", false);
+        if (moveInputVector != Vector2.zero) GetComponent<Animator>().SetBool("isRunning", true);
+        else GetComponent<Animator>().SetBool("isRunning", false);
 
         if (moveInputVector == Vector2.zero) return;
-        animator.SetFloat("moveX", moveInputVector.x);
-        animator.SetFloat("moveY", moveInputVector.y);
+        GetComponent<Animator>().SetFloat("moveX", moveInputVector.x);
+        GetComponent<Animator>().SetFloat("moveY", moveInputVector.y);
     }
 
     void Turn()
     {
-        if (RB.linearVelocity != Vector2.zero)
+        if (GetComponent<Rigidbody2D>().linearVelocity != Vector2.zero)
         {
             if (moveInputVector.x > 0) transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             else if (moveInputVector.x < 0) transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
@@ -83,8 +81,23 @@ public class PlayerController : MonoBehaviour
 
     public void FirstAnim()
     {
-        animator.SetFloat("moveX", 0);
-        animator.SetFloat("moveY", -1);
+        GetComponent<Animator>().SetFloat("moveX", 0);
+        GetComponent<Animator>().SetFloat("moveY", -1);
+    }
+
+    public void FirstAnim2()
+    {
+        moveInputVector = new Vector2(-1, 0);
+        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        GetComponent<Animator>().SetFloat("moveX", moveInputVector.x);
+        GetComponent<Animator>().SetFloat("moveY", moveInputVector.y);
+        StartCoroutine(GameInitiator.instance.continuacionCarga()); 
+    }
+
+    public void moverForzoso(float xval)
+    {
+        Vector3 newPos = new Vector3(xval,transform.position.y, transform.position.z);
+        transform.position = newPos;
     }
 
     public void AbleControl()

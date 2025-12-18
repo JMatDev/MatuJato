@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using UnityEngine.Animations;
 
 public class GameInitiator : MonoBehaviour
 {
@@ -9,14 +10,15 @@ public class GameInitiator : MonoBehaviour
     public GameObject character;
     public InputActionAsset inputActionAsset;
     public CinemachineCamera cameraBrain;
+    public Canvas gameplayCanvas;
 
 
-    [SerializeField] private bool esPrimeraCarga = false;
+    public bool esPrimeraCarga = false;
     private Respawn respawnScript;
     private NivelDataBase nivelData;
     private GameObject confinerInst = null;
+    private Vector3 buffDamping;
     
-
 
     //singleton pattern
     public static GameInitiator instance;
@@ -27,17 +29,54 @@ public class GameInitiator : MonoBehaviour
 
     public IEnumerator Start()
     {
-        yield return StartCoroutine(FadeIn());
+        yield return StartCoroutine(LevantarPantallaCarga());
         yield return StartCoroutine(BindearDatos());
-        yield return StartCoroutine(ColocarCamaraYpersonaje());
-        yield return StartCoroutine(ActivarActionMaps());
+        yield return StartCoroutine(ColocarCamara());
+        yield return StartCoroutine(ColocarPersonaje());
+        if(!esPrimeraCarga) yield return StartCoroutine(ActivarActionMaps());
         yield return StartCoroutine(RenaudarElTiempo());
-        yield return StartCoroutine(FadeOut());
+        yield return StartCoroutine(ActivarDamping());
+        if(!esPrimeraCarga) StartCoroutine(SoltarPantallaCarga());
+        if(esPrimeraCarga) yield return StartCoroutine(primeraCarga());   
     }
 
-    public IEnumerator FadeIn()
+    private IEnumerator primeraCarga()
     {
-        Debug.Log("FadeIn");
+        yield return StartCoroutine(frameLevantarse());
+        yield return StartCoroutine(SoltarPantallaCarga());
+        yield return StartCoroutine(animacionLevantarse());
+        
+    }
+
+    public IEnumerator continuacionCarga()
+    {
+        yield return new WaitForSeconds(2f);
+        yield return StartCoroutine(ActivarActionMaps());
+        yield return StartCoroutine(dialogoInicial());
+    }
+
+    private IEnumerator dialogoInicial()
+    {
+        GameObject triggerDialogoInicial = nivelData.triggerDialogoInicial;
+        triggerDialogoInicial.GetComponent<DialogueTrigger>().TriggerDialogue();
+        yield return null;
+    }
+
+    private IEnumerator frameLevantarse()
+    {
+        character.GetComponent<primeraCarga>().FrameLevantarse();
+        yield return null;
+    }
+
+    private IEnumerator animacionLevantarse()
+    {
+        character.GetComponent<primeraCarga>().AnimacionLevantarse();
+        yield return null;
+    }
+
+    public IEnumerator LevantarPantallaCarga()
+    {
+        gameplayCanvas.GetComponent<PantallaCarga>().PantallaNegro();
         yield return null;
     }
 
@@ -54,53 +93,50 @@ public class GameInitiator : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator ColocarCamaraYpersonaje()
+    private IEnumerator ColocarCamara()
     {
-        var confiner = cameraBrain.GetComponent<CinemachineConfiner2D>();
-        var composer = cameraBrain.GetComponent<CinemachinePositionComposer>();
-        var vcamBase = cameraBrain.GetComponent<CinemachineVirtualCameraBase>(); 
+        // Obtener componentes necesarios
+        buffDamping = cameraBrain.GetComponent<CinemachinePositionComposer>().Damping;
+        cameraBrain.GetComponent<CinemachinePositionComposer>().Damping = Vector3.zero;
 
-        // Backup
-        float slowBuff = confiner.SlowingDistance;
-        float dampingBuff = confiner.Damping;
-        var composerDampBuff = composer.Damping;
-
-        // Apagar suavizados
-        confiner.SlowingDistance = 0f;
-        confiner.Damping = 0f;
-        composer.Damping = Vector3.zero;
+        //cambiar el zoom
+        cameraBrain.Lens.OrthographicSize = nivelData.camaraZoom;
+        // cambiar screen position composer
+        cameraBrain.GetComponent<CinemachinePositionComposer>().Composition.ScreenPosition = nivelData.screenPositionComposer;
+        if (nivelData.esDeadZone)
+        {
+            cameraBrain.GetComponent<CinemachinePositionComposer>().Composition.DeadZone.Enabled = true;
+            cameraBrain.GetComponent<CinemachinePositionComposer>().Composition.DeadZone.Size = nivelData.deadZoneWidthHeight;
+        }
+        else
+        {
+            cameraBrain.GetComponent<CinemachinePositionComposer>().Composition.DeadZone.Enabled = false;
+        }
 
         // Cambiar confiner
         if (confinerInst != null) Destroy(confinerInst);
         confinerInst = Instantiate(nivelData.confiner);
+        cameraBrain.GetComponent<CinemachineConfiner2D>().BoundingShape2D = confinerInst.GetComponentInChildren<Collider2D>();
+        cameraBrain.GetComponent<CinemachineConfiner2D>().InvalidateBoundingShapeCache();
+        yield return null;
+    }
 
-        var bounds = confinerInst.GetComponentInChildren<Collider2D>();
-        confiner.BoundingShape2D = bounds;
-        confiner.InvalidateBoundingShapeCache();
-
-        cameraBrain.Lens.OrthographicSize = nivelData.camaraZoom;
-        composer.Composition.ScreenPosition = nivelData.screenPositionComposer;
-
-        // Teleport del personaje
-        Vector3 oldPos = character.transform.position;
-
+    private IEnumerator ColocarPersonaje()
+    {
+        // Colocar personaje
         character.transform.localScale = nivelData.escalaPersonaje;
         respawnScript.RespawnCharacter();
         character.GetComponent<PlayerController>().FirstAnim();
-
-        Vector3 delta = character.transform.position - oldPos;
-
-        if (vcamBase != null) vcamBase.OnTargetObjectWarped(character.transform, delta);
-        else cameraBrain.PreviousStateIsValid = false; // si tu clase lo tiene
         yield return null;
-
-        // Restaurar
-        confiner.SlowingDistance = slowBuff;
-        confiner.Damping = dampingBuff;
-        composer.Damping = composerDampBuff;
     }
 
-    private IEnumerator ActivarActionMaps()
+    private IEnumerator ActivarDamping()
+    {
+        cameraBrain.GetComponent<CinemachinePositionComposer>().Damping = buffDamping;
+        yield return null;
+    }
+
+    public IEnumerator ActivarActionMaps()
     {
         var gameplayMap = inputActionAsset.FindActionMap("Gameplay");
         
@@ -119,9 +155,10 @@ public class GameInitiator : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator FadeOut()
+    public IEnumerator SoltarPantallaCarga()
     {
-        Debug.Log("FadeOut");
+        yield return gameplayCanvas.GetComponent<PantallaCarga>().FadeOut();
+        yield return new WaitForSeconds(1f);
         yield return null;
     }
 }

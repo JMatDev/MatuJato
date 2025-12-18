@@ -113,7 +113,7 @@ public class LectorGuion : MonoBehaviour
 
             while (tiempo < tiempoTransicionDialogos)
             {
-                tiempo += Time.unscaledDeltaTime;
+                tiempo += Time.deltaTime;
                 float t = Mathf.Clamp01(tiempo / tiempoTransicionDialogos);
                 float curvaTD = curvaTransicionDialogos.Evaluate(t);
                 float curvaA = curvaAparicionTexto.Evaluate(t);
@@ -197,7 +197,7 @@ public class LectorGuion : MonoBehaviour
                     tmpText.text = texto;
                     yield break;
                 }
-                timer += Time.unscaledDeltaTime;
+                timer += Time.deltaTime;
                 yield return null;
             }
             yield return null;

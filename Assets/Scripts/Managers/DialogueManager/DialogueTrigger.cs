@@ -4,11 +4,10 @@ public class DialogueTrigger : MonoBehaviour
 {
     public TextAsset csvFile;
     public float zoomCamara;
-    public float camPosX;
-    public float camPosY;
+    public Vector3 camPos;
     
     public void TriggerDialogue()
     {
-        DialogueManager.instance.StartDialogue(csvFile, zoomCamara, camPosX, camPosY);
+        DialogueManager.instance.StartDialogue(csvFile, zoomCamara, camPos.x, camPos.y);
     }
 }

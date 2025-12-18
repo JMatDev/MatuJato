@@ -19,7 +19,6 @@ public class Interactuar : MonoBehaviour
     {
         if (isInRange)
         {
-            Debug.Log("Interacting with " + triggerCollider.name);
             if (isDialouge) triggerCollider.GetComponent<DialogueTrigger>().TriggerDialogue();
             if (isDoor) triggerCollider.GetComponent<TransicionNiveles>().CambiarNivel();
             triggerCollider.GetComponent<BotonInteraccion>().OcultarBoton();
