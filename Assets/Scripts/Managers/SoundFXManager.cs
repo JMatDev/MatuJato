@@ -3,7 +3,15 @@ using UnityEngine;
 
 public enum SoundType
 {
-    FOOTSTEP
+    FOOTSTEP,
+    ARRUGADO,
+    REVIVE,
+    ABRIR_DIALOGO,
+    TIMBRE,
+    ELEGIR_LLAVE,
+    ABRIR_PUERTA,
+    COGER_LLAVE,
+    PUERTA_BLOQQUEADA
 }
 
 [Serializable]
@@ -12,6 +20,8 @@ public struct SoundList
     [HideInInspector] public string name;
     public AudioClip[] sounds;
 }
+
+
 [ExecuteInEditMode]
 public class SoundFXManager : MonoBehaviour
 {
