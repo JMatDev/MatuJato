@@ -145,6 +145,7 @@ public class GameInitiator : MonoBehaviour
         character.transform.localScale = nivelData.escalaPersonaje;
         respawnScript.RespawnCharacter();
         character.GetComponent<PlayerController>().FirstAnim();
+        cameraBrain.ForceCameraPosition(character.transform.position, cameraBrain.transform.rotation);
 
         yield return null;
     }

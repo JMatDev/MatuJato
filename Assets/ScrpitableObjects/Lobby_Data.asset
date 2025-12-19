@@ -18,7 +18,7 @@ MonoBehaviour:
   respawnPoints:
   - {x: 0, y: 0, z: 0}
   camaraZoom: 11
-  screenPositionComposer: {x: 0.06, y: 0.3}
+  screenPositionComposer: {x: 0.072, y: 0.3}
   esDeadZone: 1
   deadZoneWidthHeight: {x: 1.4, y: 0.2}
   confiner: {fileID: 4730119362910098141, guid: f5c631b6ad7c5a2438afd5de56a56f32, type: 3}
