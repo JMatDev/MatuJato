@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
             PlayerData playerData = SaveManager.LoadPlayerData();
             speed = playerData.speed;
             transform.position = new Vector3(playerData.position[0], playerData.position[1], playerData.position[2]);
-            Debug.Log("Datos cardados");
+            Debug.Log("Datos cargados");
         }
     }
 
@@ -91,12 +91,12 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         GetComponent<Animator>().SetFloat("moveX", moveInputVector.x);
         GetComponent<Animator>().SetFloat("moveY", moveInputVector.y);
-        StartCoroutine(GameInitiator.instance.continuacionCarga()); 
+        StartCoroutine(GameInitiator.instance.continuacionCarga());
     }
 
     public void moverForzoso(float xval)
     {
-        Vector3 newPos = new Vector3(xval,transform.position.y, transform.position.z);
+        Vector3 newPos = new Vector3(xval, transform.position.y, transform.position.z);
         transform.position = newPos;
     }
 
