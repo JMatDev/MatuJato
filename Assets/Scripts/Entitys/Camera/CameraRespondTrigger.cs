@@ -10,6 +10,12 @@ public class CameraRespondTrigger : MonoBehaviour
     private float targetZ;
     private float rotationTimer;
 
+    private float initialZ;
+
+    void Start()
+    {
+        initialZ = transform.eulerAngles.z;
+    }
     public void Girar()
     {
         if (!activated)
@@ -20,7 +26,7 @@ public class CameraRespondTrigger : MonoBehaviour
             rotationTimer = 0f;
         }
     }
-    
+
     public void Update()
     {
         if (rotationTimer < rotationDuration && activated)
@@ -31,9 +37,20 @@ public class CameraRespondTrigger : MonoBehaviour
             float newZ = Mathf.LerpAngle(startZ, targetZ, smoothT);
             transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, newZ);
         }
-        if(rotationTimer >= rotationDuration)
+        if (rotationTimer >= rotationDuration)
         {
             activated = false;
         }
     }
- }
+    public void ResetEstado()
+    {
+        activated = false;
+        rotationTimer = 0f;
+
+        transform.rotation = Quaternion.Euler(
+            transform.eulerAngles.x,
+            transform.eulerAngles.y,
+            initialZ
+        );
+    }
+}
