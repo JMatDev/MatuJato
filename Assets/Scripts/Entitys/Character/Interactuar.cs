@@ -52,9 +52,4 @@ public class Interactuar : MonoBehaviour
     {
         GetComponentInChildren<Respawn>().RespawnCharacter();
     }
-
-    public void ReproducirAparicion()
-    {
-        SoundFXManager.instance.PlaySound(SoundType.REVIVE);
-    }
 }

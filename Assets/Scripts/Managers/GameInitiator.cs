@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using UnityEngine.Animations;
 
 public class GameInitiator : MonoBehaviour
 {
@@ -10,16 +11,15 @@ public class GameInitiator : MonoBehaviour
     public InputActionAsset inputActionAsset;
     public CinemachineCamera cameraBrain;
     public Canvas gameplayCanvas;
-    public GameObject musica;
-    public bool esPrimeraCarga = false;
 
+
+    public bool esPrimeraCarga = false;
     private Respawn respawnScript;
     private NivelDataBase nivelData;
     private GameObject confinerInst = null;
     private Vector3 dampbuff;
     private float slowingDisBuff;
     private float damp2buff;
-    private bool hayMusica = false;
 
     //singleton pattern
     public static GameInitiator instance;
@@ -85,19 +85,8 @@ public class GameInitiator : MonoBehaviour
     {
         // obtener datos del nivel
         nivelData = (NivelDataBase)gameData;
-        if (nivelData.nivelName == "Lobby_Data")
-        {
-            esPrimeraCarga = true;
-        }
-        else
-        {
-            if (!hayMusica)
-            {
-                Instantiate(musica);
-                hayMusica = true;
-            }
-            esPrimeraCarga = false;
-        }
+        if (nivelData.nivelName == "Lobby_Data") esPrimeraCarga = true;
+        else esPrimeraCarga = false;
         // obtener referencia al script respawn y bindear datos
         respawnScript = character.GetComponentInChildren<Respawn>();
         // cambiar el punto de respawn desde el scriptable object
@@ -145,7 +134,6 @@ public class GameInitiator : MonoBehaviour
         character.transform.localScale = nivelData.escalaPersonaje;
         respawnScript.RespawnCharacter();
         character.GetComponent<PlayerController>().FirstAnim();
-        cameraBrain.ForceCameraPosition(character.transform.position, cameraBrain.transform.rotation);
 
         yield return null;
     }

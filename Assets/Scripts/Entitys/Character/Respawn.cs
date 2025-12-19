@@ -20,14 +20,7 @@ public class Respawn : MonoBehaviour
             move.action.Disable();
             StartCoroutine(VibrateRoutine());
             animator.SetTrigger("Respawn");
-            StartCoroutine(PlayArrugadoSound());
         }
-    }
-
-    private IEnumerator PlayArrugadoSound()
-    {
-        yield return new WaitForSeconds(0.2f);
-        SoundFXManager.instance.PlayRandomPitch(SoundType.ARRUGADO);
     }
     
     public void RespawnCharacter()
