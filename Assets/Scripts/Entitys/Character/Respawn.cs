@@ -10,12 +10,6 @@ public class Respawn : MonoBehaviour
     public InputActionReference move;
     [HideInInspector] public Vector3 respawnPoint;
 
-    [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip sonidoMuere;
-
-    public AudioClip sonidoRevive;
-
     private bool estaEnAnimacion = false;
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -23,23 +17,15 @@ public class Respawn : MonoBehaviour
         if (col.gameObject.layer == LayerMask.NameToLayer("DeathZone") && !estaEnAnimacion)
         {
             estaEnAnimacion = true;
-
-            if (audioSource != null && sonidoMuere != null)
-                audioSource.PlayOneShot(sonidoMuere);
-
             move.action.Disable();
             StartCoroutine(VibrateRoutine());
             animator.SetTrigger("Respawn");
         }
     }
-
+    
     public void RespawnCharacter()
     {
         characterTransform.position = respawnPoint;
-
-        if (audioSource != null && sonidoRevive != null)
-            audioSource.PlayOneShot(sonidoRevive);
-
         characterTransform.GetComponent<PlayerController>().FirstAnim();
         estaEnAnimacion = false;
     }
@@ -76,7 +62,5 @@ public class Respawn : MonoBehaviour
         // Restaurar
         characterTransform.localPosition = restLocalPos;
         spriteRenderer.color = originalColor;
-
-
     }
 }

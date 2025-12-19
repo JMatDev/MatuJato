@@ -5507,8 +5507,6 @@ MonoBehaviour:
   nivelDestino: {fileID: 11400000, guid: aeb3dd8f9608d0545aac11085fd3cb67, type: 2}
   PantallaCarga: {fileID: 944282641}
   duracion: 1
-  audioSource: {fileID: 1998980946}
-  sonidoPuerta: {fileID: 8300000, guid: 89d4247ab5905ef4a8031c7722ac356a, type: 3}
 --- !u!61 &237735863
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11578,9 +11576,6 @@ MonoBehaviour:
   animator: {fileID: 124863774}
   move: {fileID: 9071938090449222851, guid: 6a50ec5d36a6ef740b21a9456be132de, type: 3}
   respawnPoint: {x: 0, y: 0, z: 0}
-  audioSource: {fileID: 1998980946}
-  sonidoMuere: {fileID: 8300000, guid: 6e627ed5dd64a334e86a32cf8afaedea, type: 3}
-  sonidoRevive: {fileID: 8300000, guid: d58a63d0b8e79814da9af69118c446f2, type: 3}
 --- !u!70 &824665662
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
