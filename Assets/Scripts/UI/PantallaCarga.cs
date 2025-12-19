@@ -1,23 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEditor.ShaderGraph.Serialization;
 
 public class PantallaCarga : MonoBehaviour
 {
     [SerializeField] private AnimationCurve curva;
-    [SerializeField] private float duracion = 1f;
     [SerializeField] private Image fadeImage;
-    public IEnumerator FadeIn()
+    public IEnumerator FadeIn(float duracion = 4.5f)
     {
         yield return StartCoroutine(AnimarFade(fadeImage,curva, duracion, 1f));
     }
-    public IEnumerator FadeOut()
+    public IEnumerator FadeOut(float duracion = 4.5f)
     {
         yield return StartCoroutine(AnimarFade(fadeImage,curva, duracion, 0f));
     }
 
     private IEnumerator AnimarFade(Image image, AnimationCurve curve, float duration, float targetAlpha)
     {
+        if(targetAlpha == 0) yield return new WaitForSeconds(2.5f);
         float startAlpha = image.color.a;
         float time = 0f;
 

@@ -1,28 +1,39 @@
 
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using System.Collections;
 
 public class MainMenuEvents : MonoBehaviour
 {
-    public Button playButton;
-    public Button exitButton;
+    public bool estamosEnAnimacionInicial = true;
+    public InputActionReference accept;
+    public Animator cajaAnimator;
+    public Animator textoAnimator;
 
+    public GameObject fade;
     void Start()
     {
-        Time.timeScale = 1;
-        playButton.onClick.AddListener(OnPlayButtonClick);
-        exitButton.onClick.AddListener(OnExitButtonClick);
+        accept.action.performed += OnAcceptPerformed;
     }
 
-    private void OnPlayButtonClick()
+    private void OnAcceptPerformed(InputAction.CallbackContext context)
     {
-        SceneManager.LoadScene("ZonaCamaras");
+        if (estamosEnAnimacionInicial)
+        {
+            cajaAnimator.SetTrigger("Continuar");
+            textoAnimator.SetTrigger("Continuar");
+        }
     }
 
-    private void OnExitButtonClick()
+    public void NuevoJuego()
     {
-        Debug.Log("Exit Game");
-        Application.Quit();
+        StartCoroutine(IniciarNuevoJuego());
+    }
+
+    private IEnumerator IniciarNuevoJuego()
+    {
+        fade.SetActive(true);
+        yield return StartCoroutine(fade.GetComponent<PantallaCarga>().FadeIn(1f));
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ZonaCamaras");
     }
 }

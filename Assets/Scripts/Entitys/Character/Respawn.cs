@@ -18,7 +18,6 @@ public class Respawn : MonoBehaviour
         {
             estaEnAnimacion = true;
             move.action.Disable();
-            Debug.Log("efecto daño");
             StartCoroutine(VibrateRoutine());
             animator.SetTrigger("Respawn");
         }

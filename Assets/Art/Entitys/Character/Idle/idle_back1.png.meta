@@ -103,12 +103,12 @@ TextureImporter:
       name: idle_back1_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 26
-        width: 191
-        height: 343
-      alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+        x: 0
+        y: 0
+        width: 200
+        height: 400
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

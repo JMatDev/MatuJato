@@ -4,11 +4,11 @@ using UnityEngine.InputSystem;
 public class Interactuar : MonoBehaviour
 {
     public InputActionReference interact;
-
     private bool isInRange = false;
     private Collider2D triggerCollider;
     private bool isDialouge = false;
     private bool isDoor = false;
+    
 
     void Start()
     {

@@ -1,18 +1,23 @@
 using UnityEngine;
+using System.Collections;
 
 public class TransicionNiveles : MonoBehaviour
 {
-    public ScriptableObject nivelDestino;   
+    public ScriptableObject nivelDestino;
+    public PantallaCarga PantallaCarga;
+    public float duracion;
+
+
     public void CambiarNivel()
     {
-        /*
-        //call game initiator fade in and fade out methods
-        GameInitiator.instance.StartCoroutine(GameInitiator.instance.FadeIn());
-        Debug.Log("Cambio de Nivel");
-        GameInitiator.instance.StartCoroutine(GameInitiator.instance.FadeOut());
-        */
+        StartCoroutine(Transicion());
+    }
 
+    private IEnumerator Transicion()
+    {
+        yield return StartCoroutine(PantallaCarga.FadeIn(duracion));
         GameInitiator.instance.gameData = nivelDestino;
-        StartCoroutine(GameInitiator.instance.Start()); 
+        yield return StartCoroutine(GameInitiator.instance.Start()); 
     }
 }
+

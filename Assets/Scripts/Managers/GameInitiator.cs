@@ -17,8 +17,9 @@ public class GameInitiator : MonoBehaviour
     private Respawn respawnScript;
     private NivelDataBase nivelData;
     private GameObject confinerInst = null;
-    private Vector3 buffDamping;
-    
+    private Vector3 dampbuff;
+    private float slowingDisBuff;
+    private float damp2buff;
 
     //singleton pattern
     public static GameInitiator instance;
@@ -50,7 +51,7 @@ public class GameInitiator : MonoBehaviour
 
     public IEnumerator continuacionCarga()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         yield return StartCoroutine(ActivarActionMaps());
         yield return StartCoroutine(dialogoInicial());
     }
@@ -85,6 +86,7 @@ public class GameInitiator : MonoBehaviour
         // obtener datos del nivel
         nivelData = (NivelDataBase)gameData;
         if (nivelData.nivelName == "Lobby_Data") esPrimeraCarga = true;
+        else esPrimeraCarga = false;
         // obtener referencia al script respawn y bindear datos
         respawnScript = character.GetComponentInChildren<Respawn>();
         // cambiar el punto de respawn desde el scriptable object
@@ -96,8 +98,13 @@ public class GameInitiator : MonoBehaviour
     private IEnumerator ColocarCamara()
     {
         // Obtener componentes necesarios
-        buffDamping = cameraBrain.GetComponent<CinemachinePositionComposer>().Damping;
+        dampbuff = cameraBrain.GetComponent<CinemachinePositionComposer>().Damping;
+        slowingDisBuff = cameraBrain.GetComponent<CinemachineConfiner2D>().SlowingDistance;
+        damp2buff = cameraBrain.GetComponent<CinemachineConfiner2D>().Damping;
+
         cameraBrain.GetComponent<CinemachinePositionComposer>().Damping = Vector3.zero;
+        cameraBrain.GetComponent<CinemachineConfiner2D>().SlowingDistance = 0f;
+        cameraBrain.GetComponent<CinemachineConfiner2D>().Damping = 0f;
 
         //cambiar el zoom
         cameraBrain.Lens.OrthographicSize = nivelData.camaraZoom;
@@ -127,12 +134,16 @@ public class GameInitiator : MonoBehaviour
         character.transform.localScale = nivelData.escalaPersonaje;
         respawnScript.RespawnCharacter();
         character.GetComponent<PlayerController>().FirstAnim();
+
         yield return null;
     }
 
     private IEnumerator ActivarDamping()
     {
-        cameraBrain.GetComponent<CinemachinePositionComposer>().Damping = buffDamping;
+        cameraBrain.GetComponent<CinemachinePositionComposer>().Damping = dampbuff;
+        cameraBrain.GetComponent<CinemachineConfiner2D>().SlowingDistance = slowingDisBuff;
+        cameraBrain.GetComponent<CinemachineConfiner2D>().Damping = damp2buff;
+        yield return new WaitForFixedUpdate();
         yield return null;
     }
 
@@ -157,8 +168,8 @@ public class GameInitiator : MonoBehaviour
 
     public IEnumerator SoltarPantallaCarga()
     {
-        yield return gameplayCanvas.GetComponent<PantallaCarga>().FadeOut();
-        yield return new WaitForSeconds(1f);
+        yield return gameplayCanvas.GetComponent<PantallaCarga>().FadeOut(3.5f);
+        if (esPrimeraCarga) yield return new WaitForSeconds(1f);
         yield return null;
     }
 }

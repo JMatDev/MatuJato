@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e83e227c3b83aa4994bf10502a325ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
-  csvFile: {fileID: 4900000, guid: 9a0a355692371ba44ab79c6701c94020, type: 3}
+  csvFile: {fileID: 4900000, guid: 1dec2ccbd51fc034dae13f88706169f3, type: 3}
   zoomCamara: 9.5
   camPos: {x: 12.43, y: -65, z: -10}
