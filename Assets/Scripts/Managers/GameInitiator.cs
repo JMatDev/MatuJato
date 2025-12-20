@@ -35,8 +35,8 @@ public class GameInitiator : MonoBehaviour
         yield return StartCoroutine(ColocarPersonaje());
         yield return StartCoroutine(RenaudarElTiempo());
         yield return StartCoroutine(ActivarDamping());
-        if(!esPrimeraCarga) StartCoroutine(SoltarPantallaCarga(fadeOut));
         if(!esPrimeraCarga) yield return StartCoroutine(ActivarActionMaps());
+        if(!esPrimeraCarga) yield return StartCoroutine(SoltarPantallaCarga(fadeOut));
         if(esPrimeraCarga) yield return StartCoroutine(primeraCarga());   
     }
 
