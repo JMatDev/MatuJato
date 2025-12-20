@@ -12,14 +12,14 @@ public class TransicionNiveles : MonoBehaviour
 
     public void CambiarNivel()
     {
-        if(characterStats.tieneLlave == false)
+        if(!characterStats.tieneLlave)
         {
-           SoundFXManager.instance.PlaySound(SoundType.PUERTA_BLOQQUEADA,0.7f);
+            SoundFXManager.instance.PlaySound(SoundType.PUERTA_BLOQQUEADA,0.7f);
         }
-        else
+        if(characterStats.tieneLlave)
         {
-            StartCoroutine(Transicion());
-        }    
+           StartCoroutine(Transicion());
+        } 
     }
 
     private IEnumerator Transicion()
@@ -27,7 +27,13 @@ public class TransicionNiveles : MonoBehaviour
         SoundFXManager.instance.PlaySound(SoundType.ABRIR_PUERTA,0.7f);
         yield return StartCoroutine(PantallaCarga.FadeIn(duracion));
         GameInitiator.instance.gameData = nivelDestino;
+        GameInitiator.instance.fadeOut = duracion;
         yield return StartCoroutine(GameInitiator.instance.Start()); 
+    }
+
+    public void siempreCerrado()
+    {
+        SoundFXManager.instance.PlaySound(SoundType.PUERTA_BLOQQUEADA,0.7f);
     }
 }
 

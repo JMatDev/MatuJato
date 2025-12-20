@@ -16,6 +16,7 @@ public class Respawn : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("DeathZone") && !estaEnAnimacion)
         {
+            Debug.Log("Respawning Character");
             estaEnAnimacion = true;
             move.action.Disable();
             StartCoroutine(VibrateRoutine());
